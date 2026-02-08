@@ -24,7 +24,7 @@
     cursor: default;
 }
 
-.flow-node:hover {
+.flow-node.hovered {
     box-shadow: 0 0 20px color-mix(in srgb, var(--node-color) 40%, transparent);
     transform: translateY(-2px);
     z-index: 9999 !important;
@@ -78,9 +78,8 @@
     transition: all var(--transition-slow);
 }
 
-/* Show details on hover (only when zoomed in enough) */
-.zoom-detailed .flow-node:hover .node-detail,
-.zoom-standard .flow-node:hover .node-detail {
+/* Show details on hover */
+.flow-node.hovered .node-detail {
     max-height: 500px;
     opacity: 1;
 }
@@ -237,4 +236,42 @@
 /* Ensure hovered nodes appear on top via React Flow's wrapper */
 .react-flow__node:hover {
     z-index: 9999 !important;
+}
+
+/* =========================================
+   ZOOM-DEPENDENT LAYOUT STYLES
+   ========================================= */
+
+/* OVERVIEW MODE (< 80% zoom) */
+/* Hide summaries, make titles larger */
+.zoom-overview .flow-node .node-summary {
+    display: none;
+}
+
+.zoom-overview .flow-node .node-title {
+    font-size: 1.1rem;
+    /* Slightly larger */
+}
+
+.zoom-overview .flow-node {
+    padding: var(--spacing-sm);
+    /* Compact padding */
+    min-width: 160px;
+    /* Smaller width */
+}
+
+/* STANDARD MODE (80% - 120% zoom) */
+/* Standard behavior (hover to expand) - inherited from base styles */
+
+/* DETAILED MODE (> 120% zoom) */
+/* Auto-expand details without hover */
+.zoom-detailed .flow-node .node-detail {
+    max-height: 500px;
+    opacity: 1;
+}
+
+/* Ensure hover still works and lifts the node even if already expanded */
+.zoom-detailed .flow-node:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px color-mix(in srgb, var(--node-color) 40%, transparent);
 }

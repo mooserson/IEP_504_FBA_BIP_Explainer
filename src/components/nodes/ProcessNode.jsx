@@ -1,18 +1,21 @@
 /**
  * ProcessNode - Standard process step node with semantic zoom
  */
-import { memo } from 'react';
+import { memo, useState } from 'react';
 import { Handle, Position } from '@xyflow/react';
 import { categoryColors } from '../../data/flowData';
 import './nodes.css';
 
 function ProcessNode({ data, selected }) {
+    const [isHovered, setIsHovered] = useState(false);
     const borderColor = categoryColors[data.category] || 'var(--color-primary)';
 
     return (
         <div
-            className={`flow-node process-node ${selected ? 'selected' : ''}`}
+            className={`flow-node process-node ${selected ? 'selected' : ''} ${isHovered ? 'hovered' : ''}`}
             style={{ '--node-color': borderColor }}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
         >
             <Handle type="target" position={Position.Top} />
 

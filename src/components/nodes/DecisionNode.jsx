@@ -1,18 +1,21 @@
 /**
  * DecisionNode - Diamond-shaped decision point
  */
-import { memo } from 'react';
+import { memo, useState } from 'react';
 import { Handle, Position } from '@xyflow/react';
 import { categoryColors } from '../../data/flowData';
 import './nodes.css';
 
 function DecisionNode({ data, selected }) {
+    const [isHovered, setIsHovered] = useState(false);
     const borderColor = categoryColors[data.category] || 'var(--color-decision)';
 
     return (
         <div
-            className={`flow-node decision-node ${selected ? 'selected' : ''}`}
+            className={`flow-node decision-node ${selected ? 'selected' : ''} ${isHovered ? 'hovered' : ''}`}
             style={{ '--node-color': borderColor }}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
         >
             <Handle type="target" position={Position.Top} />
 

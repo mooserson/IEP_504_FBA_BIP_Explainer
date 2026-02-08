@@ -50,15 +50,15 @@ function FlowCanvas() {
     const { fitView } = useReactFlow();
 
     // Handle zoom changes for semantic zoom
-    const onMoveEnd = useCallback((event, viewport) => {
+    const onMove = useCallback((event, viewport) => {
         setZoomLevel(viewport.zoom);
     }, []);
 
     // Determine zoom category for UI display
     const zoomCategory = useMemo(() => {
-        if (zoomLevel > 1.2) return 'detailed';
-        if (zoomLevel > 0.6) return 'standard';
-        return 'overview';
+        if (zoomLevel >= 1.2) return 'detailed';
+        if (zoomLevel < 0.8) return 'overview';
+        return 'standard';
     }, [zoomLevel]);
 
     // Minimap node color based on category
@@ -73,7 +73,7 @@ function FlowCanvas() {
                 edges={edges}
                 onNodesChange={onNodesChange}
                 onEdgesChange={onEdgesChange}
-                onMoveEnd={onMoveEnd}
+                onMove={onMove}
                 nodeTypes={nodeTypes}
                 defaultEdgeOptions={defaultEdgeOptions}
                 fitView
@@ -124,18 +124,21 @@ function SourcesPanel() {
 
     const sources = {
         documents: [
-            { name: 'ISBE Part 226: Special Education', url: 'https://www.isbe.net/Documents/226ark.pdf' },
-            { name: 'ISBE Part 28: Dispute Resolution', url: 'https://www.isbe.net/Pages/Special-Education-Dispute-Resolution.aspx' },
-            { name: 'ISBE Part 401: Section 504', url: 'https://www.isbe.net/Pages/Section-504.aspx' },
-            { name: 'ISBE-IASSW School Social Work Guide', url: 'https://www.isbe.net/Pages/School-Social-Work.aspx' },
+            { name: 'ISBE Part 226: Special Education', url: './Docs/isbe_part_226.pdf' },
+            { name: 'ISBE Part 28: Dispute Resolution', url: './Docs/isbe_part_28.pdf' }, // Assumed match
+            { name: 'ISBE Part 401: Non-Public Special Ed', url: './Docs/isbe_part_401.pdf' }, // Use local 504/401 ref
+            { name: 'ISBE-IASSW School Social Work Guide', url: './Docs/ISBE-IASSW-School-Social-Work-Guide.pdf' },
+            { name: 'IEP Instructions', url: './Docs/iep_instructions.pdf' },
+            { name: 'FBA Form (Sample)', url: './Docs/FBA-FORM.pdf' },
+            { name: 'BIP Form (Sample)', url: './Docs/BIP-FORM-English.pdf' },
         ],
         web: [
-            { name: 'NCLD: IEP vs 504 Plans', url: 'https://www.ncld.org/news/disability-explained/' },
-            { name: 'ISBE: MTSS Framework', url: 'https://www.isbe.net/Pages/Multi-Tiered-System-of-Supports.aspx' },
-            { name: 'IL Legal Aid: Special Ed Rights', url: 'https://www.illinoislegalaid.org/legal-information/special-education' },
-            { name: 'Disability Rights NC: FBA/BIP', url: 'https://disabilityrightsnc.org/education/' },
-            { name: 'IDEA Regulations', url: 'https://sites.ed.gov/idea/regs/b' },
-            { name: 'Michigan Alliance: FBA Guide', url: 'https://michiganallianceforfamilies.org/education/' },
+            { name: 'Understood.org: IEP vs 504', url: 'https://www.understood.org/en/articles/the-difference-between-ieps-and-504-plans' },
+            { name: 'Center on MTSS (National)', url: 'https://mtss4success.org/' },
+            { name: 'IL Legal Aid: Education Rights', url: 'https://www.illinoislegalaid.org/legal-information/education' },
+            { name: 'Parent Center Hub: FBA/BIP Resources', url: 'https://www.parentcenterhub.org/fba/' },
+            { name: 'IDEA Regulations (Part B)', url: 'https://sites.ed.gov/idea/regs/b' },
+            { name: 'Michigan Alliance: FBA Guide', url: 'https://www.michiganallianceforfamilies.org/behavior/fba/' },
         ],
     };
 
