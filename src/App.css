@@ -70,7 +70,7 @@
 /* Legend */
 .legend {
     position: absolute;
-    bottom: 160px;
+    bottom: 180px;
     right: var(--spacing-lg);
     background: var(--color-bg-secondary);
     border: 1px solid var(--color-border);
@@ -273,8 +273,22 @@
     gap: 2px;
 }
 
-.source-url {
-    font-size: 0.65rem;
+.sources-list a {
     color: var(--color-primary-light);
+    text-decoration: none;
+    transition: color var(--transition-base);
+}
+
+.sources-list a:hover {
+    color: var(--color-text);
+    text-decoration: underline;
+}
+
+.sources-disclaimer {
+    font-size: 0.65rem;
+    color: var(--color-text-muted);
     opacity: 0.7;
+    padding-top: var(--spacing-sm);
+    border-top: 1px solid var(--color-border);
+    margin-top: var(--spacing-sm);
 }

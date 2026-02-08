@@ -1,5 +1,16 @@
 /* Custom Node Styles */
 
+/* Disable pointer-events on handles so entire tile is hoverable */
+.react-flow__handle {
+    pointer-events: none !important;
+}
+
+/* Re-enable handle interaction only when actively connecting */
+.react-flow__handle.connectionindicator,
+.react-flow__handle:hover {
+    pointer-events: auto !important;
+}
+
 .flow-node {
     background: var(--color-bg-secondary);
     border: 2px solid var(--node-color, var(--color-border));
@@ -10,11 +21,14 @@
     box-shadow: var(--shadow-lg);
     transition: all var(--transition-base);
     position: relative;
+    cursor: default;
 }
 
 .flow-node:hover {
     box-shadow: 0 0 20px color-mix(in srgb, var(--node-color) 40%, transparent);
     transform: translateY(-2px);
+    z-index: 9999 !important;
+    position: relative;
 }
 
 .flow-node.selected {
@@ -53,7 +67,7 @@
     line-height: 1.4;
 }
 
-/* Detail Section (shown on zoom only) */
+/* Detail Section (shown on hover) */
 .node-detail {
     margin-top: var(--spacing-md);
     padding-top: var(--spacing-md);
@@ -64,7 +78,9 @@
     transition: all var(--transition-slow);
 }
 
-.zoom-detailed .node-detail {
+/* Show details on hover (only when zoomed in enough) */
+.zoom-detailed .flow-node:hover .node-detail,
+.zoom-standard .flow-node:hover .node-detail {
     max-height: 500px;
     opacity: 1;
 }
@@ -160,30 +176,43 @@
     fill: var(--color-bg-secondary);
 }
 
-/* Phase Label Node - visible when zoomed out */
+/* Phase Label Node - visible when zoomed out, ABOVE tiles */
 .phase-label-node {
     background: transparent;
     border: none;
     padding: var(--spacing-sm);
     text-align: left;
     pointer-events: none;
+    z-index: 1000 !important;
+}
+
+.phase-label-box {
+    background: rgba(99, 102, 241, 0.05);
+    border: 1px dashed rgba(99, 102, 241, 0.3);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-md) var(--spacing-lg);
+    min-width: 180px;
 }
 
 .phase-label-text {
-    font-size: 24px;
-    font-weight: 800;
-    color: var(--color-text);
-    letter-spacing: 0.05em;
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--color-primary-light);
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    opacity: 0.3;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    text-shadow:
+        0 0 20px rgba(99, 102, 241, 0.5),
+        0 0 40px rgba(99, 102, 241, 0.3),
+        0 2px 4px rgba(0, 0, 0, 0.8);
+    white-space: nowrap;
 }
 
 .phase-label-description {
-    font-size: 12px;
-    color: var(--color-text-muted);
-    opacity: 0.4;
-    margin-top: 4px;
+    font-size: 14px;
+    color: var(--color-text);
+    opacity: 0.8;
+    margin-top: 6px;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
 }
 
 /* Hide phase labels when zoomed in */
@@ -193,7 +222,7 @@
 }
 
 .zoom-standard .phase-label-node {
-    opacity: 0.6;
+    opacity: 0.4;
 }
 
 .zoom-overview .phase-label-node {
@@ -205,7 +234,7 @@
     stroke-width: 2 !important;
 }
 
-/* Node spacing adjustments for detail view */
-.zoom-detailed .flow-node {
-    max-width: 320px;
+/* Ensure hovered nodes appear on top via React Flow's wrapper */
+.react-flow__node:hover {
+    z-index: 9999 !important;
 }

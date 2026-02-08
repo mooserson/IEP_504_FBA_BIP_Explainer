@@ -22,12 +22,12 @@ export const NODE_CATEGORIES = {
     PHASE_LABEL: 'phase-label',
 };
 
-// Phase label nodes (visible when zoomed out)
+// Phase label nodes (visible when zoomed out) - positioned LEFT of tiles
 const phaseLabels = [
     {
         id: 'phase-recognition',
         type: 'phaseLabelNode',
-        position: { x: 600, y: -80 },
+        position: { x: -200, y: -20 },
         data: {
             category: NODE_CATEGORIES.PHASE_LABEL,
             label: '1. RECOGNITION',
@@ -37,7 +37,7 @@ const phaseLabels = [
     {
         id: 'phase-mtss',
         type: 'phaseLabelNode',
-        position: { x: 600, y: 200 },
+        position: { x: -200, y: 280 },
         data: {
             category: NODE_CATEGORIES.PHASE_LABEL,
             label: '2. MTSS / RTI',
@@ -47,7 +47,7 @@ const phaseLabels = [
     {
         id: 'phase-referral',
         type: 'phaseLabelNode',
-        position: { x: 600, y: 900 },
+        position: { x: -200, y: 1050 },
         data: {
             category: NODE_CATEGORIES.PHASE_LABEL,
             label: '3. REFERRAL',
@@ -57,7 +57,7 @@ const phaseLabels = [
     {
         id: 'phase-evaluation',
         type: 'phaseLabelNode',
-        position: { x: 600, y: 1400 },
+        position: { x: -200, y: 1550 },
         data: {
             category: NODE_CATEGORIES.PHASE_LABEL,
             label: '4. EVALUATION',
@@ -67,7 +67,7 @@ const phaseLabels = [
     {
         id: 'phase-eligibility',
         type: 'phaseLabelNode',
-        position: { x: 600, y: 1900 },
+        position: { x: -200, y: 1950 },
         data: {
             category: NODE_CATEGORIES.PHASE_LABEL,
             label: '5. ELIGIBILITY',
@@ -77,7 +77,7 @@ const phaseLabels = [
     {
         id: 'phase-iep',
         type: 'phaseLabelNode',
-        position: { x: 200, y: 2400 },
+        position: { x: -300, y: 2500 },
         data: {
             category: NODE_CATEGORIES.PHASE_LABEL,
             label: '6A. IEP PATHWAY',
@@ -87,11 +87,21 @@ const phaseLabels = [
     {
         id: 'phase-504',
         type: 'phaseLabelNode',
-        position: { x: 1100, y: 2400 },
+        position: { x: 1450, y: 2500 },
         data: {
             category: NODE_CATEGORIES.PHASE_LABEL,
-            label: '6B. 504 PATHWAY',
+            label: '6B. 504 PLAN',
             description: 'Section 504 Accommodations',
+        },
+    },
+    {
+        id: 'phase-fba-bip',
+        type: 'phaseLabelNode',
+        position: { x: -300, y: 2950 },
+        data: {
+            category: NODE_CATEGORIES.PHASE_LABEL,
+            label: '6C. FBA / BIP',
+            description: 'Behavior Assessment & Intervention',
         },
     },
 ];

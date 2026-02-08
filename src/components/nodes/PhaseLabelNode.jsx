@@ -8,8 +8,10 @@ import './nodes.css';
 function PhaseLabelNode({ data }) {
     return (
         <div className="phase-label-node">
-            <div className="phase-label-text">{data.label}</div>
-            <div className="phase-label-description">{data.description}</div>
+            <div className="phase-label-box">
+                <div className="phase-label-text">{data.label}</div>
+                <div className="phase-label-description">{data.description}</div>
+            </div>
         </div>
     );
 }

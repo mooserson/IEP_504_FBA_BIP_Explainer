@@ -91,6 +91,8 @@ function FlowCanvas() {
                     nodeColor={nodeColor}
                     maskColor="rgba(15, 23, 42, 0.8)"
                     style={{ background: 'var(--color-bg-secondary)' }}
+                    zoomable
+                    pannable
                 />
             </ReactFlow>
 
@@ -108,7 +110,7 @@ function FlowCanvas() {
 
             {/* Instructions */}
             <div className="instructions">
-                Scroll to zoom • Drag to pan • Zoom in for details
+                Scroll to zoom • Drag to pan • Hover tiles for details
             </div>
 
             {/* Legend */}
@@ -122,20 +124,18 @@ function SourcesPanel() {
 
     const sources = {
         documents: [
-            'ISBE Part 226 (Special Education)',
-            'ISBE Part 28 (Dispute Resolution)',
-            'ISBE Part 401 (Section 504)',
-            'ISBE-IASSW School Social Work Guide',
-            'SOWK 609B Course Materials',
-            'IEP Instructions Form',
-            'FBA & BIP Forms',
+            { name: 'ISBE Part 226: Special Education', url: 'https://www.isbe.net/Documents/226ark.pdf' },
+            { name: 'ISBE Part 28: Dispute Resolution', url: 'https://www.isbe.net/Pages/Special-Education-Dispute-Resolution.aspx' },
+            { name: 'ISBE Part 401: Section 504', url: 'https://www.isbe.net/Pages/Section-504.aspx' },
+            { name: 'ISBE-IASSW School Social Work Guide', url: 'https://www.isbe.net/Pages/School-Social-Work.aspx' },
         ],
         web: [
-            { name: 'NCLD - IEP vs 504', url: 'ncld.org' },
-            { name: 'ISBE - MTSS Framework', url: 'isbe.net' },
-            { name: 'IL Legal Aid - Parent Rights', url: 'illinoislegalaid.org' },
-            { name: 'UNC/ECAC - Referral Process', url: 'unc.edu' },
-            { name: 'Disability Rights - FBA/BIP', url: 'drckansas.org' },
+            { name: 'NCLD: IEP vs 504 Plans', url: 'https://www.ncld.org/news/disability-explained/' },
+            { name: 'ISBE: MTSS Framework', url: 'https://www.isbe.net/Pages/Multi-Tiered-System-of-Supports.aspx' },
+            { name: 'IL Legal Aid: Special Ed Rights', url: 'https://www.illinoislegalaid.org/legal-information/special-education' },
+            { name: 'Disability Rights NC: FBA/BIP', url: 'https://disabilityrightsnc.org/education/' },
+            { name: 'IDEA Regulations', url: 'https://sites.ed.gov/idea/regs/b' },
+            { name: 'Michigan Alliance: FBA Guide', url: 'https://michiganallianceforfamilies.org/education/' },
         ],
     };
 
@@ -152,23 +152,31 @@ function SourcesPanel() {
             {isOpen && (
                 <div className="sources-content">
                     <div className="sources-section">
-                        <div className="sources-title">📄 Course Documents</div>
+                        <div className="sources-title">📄 Official Documents</div>
                         <ul className="sources-list">
                             {sources.documents.map((source, idx) => (
-                                <li key={idx}>{source}</li>
+                                <li key={idx}>
+                                    <a href={source.url} target="_blank" rel="noopener noreferrer">
+                                        {source.name}
+                                    </a>
+                                </li>
                             ))}
                         </ul>
                     </div>
                     <div className="sources-section">
                         <div className="sources-title">🌐 Web References</div>
-                        <ul className="sources-list web">
+                        <ul className="sources-list">
                             {sources.web.map((source, idx) => (
                                 <li key={idx}>
-                                    <span>{source.name}</span>
-                                    <span className="source-url">{source.url}</span>
+                                    <a href={source.url} target="_blank" rel="noopener noreferrer">
+                                        {source.name}
+                                    </a>
                                 </li>
                             ))}
                         </ul>
+                    </div>
+                    <div className="sources-disclaimer">
+                        <em>Note: Always verify current regulations with official sources.</em>
                     </div>
                 </div>
             )}
