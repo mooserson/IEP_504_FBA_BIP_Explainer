@@ -1,0 +1,280 @@
+/* App-specific styles */
+
+.app-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--color-bg);
+}
+
+.app-header {
+    padding: var(--spacing-md) var(--spacing-xl);
+    background: var(--color-bg-secondary);
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 100;
+}
+
+.app-title {
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-504) 50%, var(--color-iep) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.app-subtitle {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin-top: var(--spacing-xs);
+}
+
+.flow-container {
+    flex: 1;
+    width: 100%;
+    position: relative;
+}
+
+/* React Flow Overrides */
+.react-flow__background {
+    background-color: var(--color-bg) !important;
+}
+
+.react-flow__controls {
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+}
+
+.react-flow__controls-button {
+    background: var(--color-bg-secondary);
+    border-bottom: 1px solid var(--color-border);
+    fill: var(--color-text);
+}
+
+.react-flow__controls-button:hover {
+    background: var(--color-bg-card);
+}
+
+.react-flow__minimap {
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+}
+
+/* Legend */
+.legend {
+    position: absolute;
+    bottom: 160px;
+    right: var(--spacing-lg);
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-md);
+    z-index: 10;
+    backdrop-filter: blur(8px);
+}
+
+.legend-title {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-text);
+}
+
+.legend-items {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+}
+
+.legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: var(--radius-sm);
+}
+
+.legend-divider {
+    height: 1px;
+    background: var(--color-border);
+    margin: var(--spacing-sm) 0;
+}
+
+.legend-line {
+    width: 24px;
+    height: 2px;
+    background: var(--color-text-muted);
+}
+
+.legend-line.solid {
+    background: var(--color-text-muted);
+}
+
+.legend-line.dashed {
+    background: repeating-linear-gradient(90deg,
+            var(--color-text-muted) 0px,
+            var(--color-text-muted) 4px,
+            transparent 4px,
+            transparent 8px);
+}
+
+/* Zoom Level Indicator */
+.zoom-indicator {
+    position: absolute;
+    top: var(--spacing-lg);
+    right: var(--spacing-lg);
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    z-index: 10;
+}
+
+.zoom-indicator strong {
+    color: var(--color-text);
+}
+
+/* Instructions panel */
+.instructions {
+    position: absolute;
+    top: var(--spacing-lg);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-sm) var(--spacing-lg);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    z-index: 10;
+    opacity: 0.9;
+    transition: opacity var(--transition-base);
+}
+
+.instructions:hover {
+    opacity: 0.5;
+}
+
+/* Sources Panel */
+.sources-panel {
+    position: absolute;
+    top: var(--spacing-lg);
+    left: var(--spacing-lg);
+    z-index: 20;
+}
+
+.sources-toggle {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+.sources-toggle:hover {
+    background: var(--color-bg-card);
+    color: var(--color-text);
+    border-color: var(--color-primary);
+}
+
+.sources-panel.open .sources-toggle {
+    background: var(--color-primary);
+    color: white;
+    border-color: var(--color-primary);
+}
+
+.sources-icon {
+    font-size: var(--font-size-base);
+}
+
+.sources-content {
+    margin-top: var(--spacing-sm);
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-md);
+    min-width: 240px;
+    backdrop-filter: blur(8px);
+    animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.sources-title {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: var(--spacing-sm);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.sources-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sources-list li {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+    padding: var(--spacing-xs) 0;
+    padding-left: var(--spacing-sm);
+    border-left: 2px solid var(--color-primary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.sources-list li:last-child {
+    margin-bottom: 0;
+}
+
+.sources-section {
+    margin-bottom: var(--spacing-md);
+}
+
+.sources-section:last-child {
+    margin-bottom: 0;
+}
+
+.sources-list.web li {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.source-url {
+    font-size: 0.65rem;
+    color: var(--color-primary-light);
+    opacity: 0.7;
+}

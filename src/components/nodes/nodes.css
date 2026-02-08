@@ -1,0 +1,211 @@
+/* Custom Node Styles */
+
+.flow-node {
+    background: var(--color-bg-secondary);
+    border: 2px solid var(--node-color, var(--color-border));
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-md);
+    min-width: 200px;
+    max-width: 280px;
+    box-shadow: var(--shadow-lg);
+    transition: all var(--transition-base);
+    position: relative;
+}
+
+.flow-node:hover {
+    box-shadow: 0 0 20px color-mix(in srgb, var(--node-color) 40%, transparent);
+    transform: translateY(-2px);
+}
+
+.flow-node.selected {
+    box-shadow: 0 0 30px color-mix(in srgb, var(--node-color) 60%, transparent);
+    border-width: 3px;
+}
+
+/* Node Header */
+.node-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+}
+
+.node-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--node-color);
+    box-shadow: 0 0 8px var(--node-color);
+}
+
+.node-title {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.3;
+}
+
+.node-summary {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* Detail Section (shown on zoom only) */
+.node-detail {
+    margin-top: var(--spacing-md);
+    padding-top: var(--spacing-md);
+    border-top: 1px solid var(--color-border);
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: all var(--transition-slow);
+}
+
+.zoom-detailed .node-detail {
+    max-height: 500px;
+    opacity: 1;
+}
+
+.node-detail-content {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+    line-height: 1.6;
+}
+
+.node-detail-content strong {
+    color: var(--color-text);
+    font-weight: 600;
+}
+
+.node-detail-content p {
+    margin: 0 0 var(--spacing-sm) 0;
+}
+
+.node-detail-content .bullet {
+    padding-left: var(--spacing-md);
+}
+
+/* Decision Node */
+.decision-node {
+    background: linear-gradient(135deg, var(--color-bg-secondary) 0%, var(--color-bg-card) 100%);
+    transform: rotate(0deg);
+    min-width: 180px;
+    text-align: center;
+    border-style: dashed;
+}
+
+.decision-diamond {
+    padding: var(--spacing-sm);
+}
+
+.decision-node .node-title {
+    font-size: var(--font-size-base);
+    margin-bottom: var(--spacing-xs);
+}
+
+.decision-node .node-summary {
+    font-size: 0.7rem;
+}
+
+/* Endpoint Node */
+.endpoint-node {
+    background: linear-gradient(135deg,
+            color-mix(in srgb, var(--node-color) 15%, var(--color-bg-secondary)) 0%,
+            var(--color-bg-secondary) 100%);
+    text-align: center;
+    border-width: 3px;
+}
+
+.endpoint-badge {
+    width: 28px;
+    height: 28px;
+    background: var(--node-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--spacing-sm);
+    font-size: var(--font-size-sm);
+    color: white;
+    font-weight: bold;
+}
+
+.endpoint-node .node-title {
+    font-size: var(--font-size-base);
+    margin-bottom: var(--spacing-xs);
+}
+
+/* React Flow Handle Overrides */
+.react-flow__handle {
+    width: 10px;
+    height: 10px;
+    background: var(--node-color, var(--color-primary));
+    border: 2px solid var(--color-bg-secondary);
+}
+
+.react-flow__handle:hover {
+    transform: scale(1.3);
+}
+
+/* Edge Labels */
+.react-flow__edge-text {
+    font-size: 10px;
+    fill: var(--color-text-muted);
+}
+
+.react-flow__edge-textbg {
+    fill: var(--color-bg-secondary);
+}
+
+/* Phase Label Node - visible when zoomed out */
+.phase-label-node {
+    background: transparent;
+    border: none;
+    padding: var(--spacing-sm);
+    text-align: left;
+    pointer-events: none;
+}
+
+.phase-label-text {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--color-text);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    opacity: 0.3;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.phase-label-description {
+    font-size: 12px;
+    color: var(--color-text-muted);
+    opacity: 0.4;
+    margin-top: 4px;
+}
+
+/* Hide phase labels when zoomed in */
+.zoom-detailed .phase-label-node {
+    opacity: 0;
+    transition: opacity var(--transition-base);
+}
+
+.zoom-standard .phase-label-node {
+    opacity: 0.6;
+}
+
+.zoom-overview .phase-label-node {
+    opacity: 1;
+}
+
+/* Edge colors based on flow direction */
+.react-flow__edge-path {
+    stroke-width: 2 !important;
+}
+
+/* Node spacing adjustments for detail view */
+.zoom-detailed .flow-node {
+    max-width: 320px;
+}
