@@ -19,6 +19,7 @@ import ProcessNode from './components/nodes/ProcessNode';
 import DecisionNode from './components/nodes/DecisionNode';
 import EndpointNode from './components/nodes/EndpointNode';
 import PhaseLabelNode from './components/nodes/PhaseLabelNode';
+import ThemeToggle from './components/ui/ThemeToggle';
 import { initialNodes, initialEdges, categoryColors, NODE_CATEGORIES } from './data/flowData';
 import './App.css';
 
@@ -233,6 +234,7 @@ function App() {
                     <h1 className="app-title">Special Education Intervention Flowchart</h1>
                     <p className="app-subtitle">504 Plans • IEPs • FBAs • BIPs — A comprehensive guide for school social workers</p>
                 </div>
+                <ThemeToggle />
             </header>
 
             <ReactFlowProvider>
