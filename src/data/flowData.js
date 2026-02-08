@@ -263,7 +263,11 @@ than core instruction.
 
 **Important Note:**
 Students do NOT need to "fail" through all tiers before a special education 
-referral. Parents can request an evaluation at any time.`,
+referral. Parents can request an evaluation at any time.
+
+**Legal Requirement:**
+Schools cannot delay a special education evaluation due to a student's 
+participation in the MTSS/RTI process.`,
         },
     },
 
@@ -318,8 +322,10 @@ referral. Parents can request an evaluation at any time.`,
 • Must respond within 14 school days (IL)
 
 **School Response:**
-District must decide whether to evaluate within 14 school days 
-and provide Prior Written Notice of their decision.`,
+District has **14 school days** to provide a written response deciding whether 
+to evaluate. They must either:
+1. Agree to evaluate (and request consent)
+2. Deny the request (and provide written explanation)`,
         },
     },
 
@@ -340,8 +346,8 @@ any evaluation for special education.
 • Refusal does not affect other services
 
 **Timeline Trigger:**
-The 60-school-day evaluation timeline begins when 
-consent is received.
+The 60-school-day evaluation timeline begins on the date the school **receives** 
+the signed written consent.
 
 **If Parent Refuses:**
 • School may request due process (rare)
@@ -361,7 +367,8 @@ consent is received.
             summary: '60 school days to complete full evaluation',
             detail: `A **comprehensive evaluation** assesses all areas of suspected disability.
 
-**Timeline:** 60 school days from consent (Illinois)
+**Timeline:** 60 school days from receipt of consent to complete evaluation AND hold eligibility meeting.
+(Note: If <60 days left in school year, must be done by first day of next year)
 
 **Assessment Areas:**
 • Cognitive/intellectual functioning
@@ -404,13 +411,18 @@ consent is received.
 2. Disability adversely affects educational performance
 3. Student needs specially designed instruction
 
-**13 IDEA Disability Categories:**
+**14 IDEA Disability Categories:**
 • Autism • Deaf-Blindness • Deafness
-• Emotional Disturbance • Hearing Impairment
-• Intellectual Disability • Multiple Disabilities
-• Orthopedic Impairment • Other Health Impairment
-• Specific Learning Disability • Speech/Language
-• Traumatic Brain Injury • Visual Impairment
+• Developmental Delay (ages 3-9) • Emotional Disability
+• Hearing Impairment • Intellectual Disability
+• Multiple Disabilities • Orthopedic Impairment
+• Other Health Impairment • Specific Learning Disability
+• Speech/Language • Traumatic Brain Injury
+• Visual Impairment
+
+**Required Notices:**
+• Must provide copies of all reports/eligibility drafts (typically 3 days prior)
+• Must provide written notice of eligibility determination within **10 school days** of meeting
 
 **If NOT Eligible for IEP:**
 Consider 504 Plan eligibility`,
@@ -445,7 +457,7 @@ Consider 504 Plan eligibility`,
             summary: 'Team develops Individualized Education Program',
             detail: `If eligible, the team develops an **Individualized Education Program (IEP)**.
 
-**Timeline:** Within 30 days of eligibility determination
+**Timeline:** Meeting must be held within **30 calendar days** of eligibility determination
 
 **IEP Team Must Include:**
 • Parent(s)
@@ -482,6 +494,11 @@ Consider 504 Plan eligibility`,
 • Is behavior impacting the student's learning?
 • Is behavior impacting others' learning?
 • Are current interventions ineffective?
+
+**Mandatory FBA If:**
+• Student removed for >10 school days (pattern of behavior)
+• Manifestation Determination finds behavior is disability-related
+• Student placed in Interim Alternative Educational Setting (IAES)
 
 **If Yes:** FBA and BIP required`,
         },
