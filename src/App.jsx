@@ -128,17 +128,17 @@ function SourcesPanel() {
             { name: 'ISBE Part 28: Dispute Resolution', url: './Docs/isbe_part_28.pdf' }, // Assumed match
             { name: 'ISBE Part 401: Non-Public Special Ed', url: './Docs/isbe_part_401.pdf' }, // Use local 504/401 ref
             { name: 'ISBE-IASSW School Social Work Guide', url: './Docs/ISBE-IASSW-School-Social-Work-Guide.pdf' },
-            { name: 'IEP Instructions', url: './Docs/iep_instructions.pdf' },
+            { name: 'ISBE IEP Instructions', url: './Docs/iep_instructions.pdf' },
             { name: 'FBA Form (Sample)', url: './Docs/FBA-FORM.pdf' },
             { name: 'BIP Form (Sample)', url: './Docs/BIP-FORM-English.pdf' },
         ],
         web: [
             { name: 'Understood.org: IEP vs 504', url: 'https://www.understood.org/en/articles/the-difference-between-ieps-and-504-plans' },
             { name: 'Center on MTSS (National)', url: 'https://mtss4success.org/' },
-            { name: 'IL Legal Aid: Education Rights', url: 'https://www.illinoislegalaid.org/legal-information/education' },
+            { name: 'IL Legal Aid: School & Education', url: 'https://www.illinoislegalaid.org/legal-information/school-education' },
             { name: 'Parent Center Hub: FBA/BIP Resources', url: 'https://www.parentcenterhub.org/fba/' },
-            { name: 'IDEA Regulations (Part B)', url: 'https://sites.ed.gov/idea/regs/b' },
-            { name: 'Michigan Alliance: FBA Guide', url: 'https://www.michiganallianceforfamilies.org/behavior/fba/' },
+            { name: 'CRS Report: IDEA Series', url: 'https://www.congress.gov/crs-product/R41833' },
+            { name: 'INTC: FBA Guide', url: 'https://intc.education.illinois.edu/docs/librariesprovider14/2022-lc/evaluating-and-developing-quality-functional-behavioral-assessments-(fbas).pdf?sfvrsn=8e2d0936_3' },
         ],
     };
 
