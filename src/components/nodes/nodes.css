@@ -148,6 +148,10 @@
     font-size: 0.7rem;
 }
 
+.decision-node .node-detail {
+    text-align: left;
+}
+
 /* Endpoint Node */
 .endpoint-node {
     background: linear-gradient(135deg,

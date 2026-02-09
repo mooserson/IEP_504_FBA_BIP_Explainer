@@ -2,7 +2,7 @@
  * Special Education Intervention Flowchart
  * Interactive visualization of 504, IEP, FBA, and BIP processes
  */
-import { useCallback, useState, useMemo, useEffect } from 'react';
+import { useCallback, useState, useMemo, useEffect, useRef } from 'react';
 import {
     ReactFlow,
     Controls,
@@ -71,15 +71,11 @@ function FlowCanvas() {
     // Effect to update graph based on settings
     useEffect(() => {
         try {
-            // 1. Filter Nodes based on Complexity
+            // 1. Always show all nodes (no filtering)
             const safeInitialNodes = Array.isArray(initialNodes) ? initialNodes : [];
-            const filteredNodes = safeInitialNodes.filter(node =>
-                experimentSettings.showComplexFlows || node.data?.scenario !== 'complex'
-            );
+            setNodes(safeInitialNodes);
 
-            setNodes(filteredNodes);
-
-            // 2. Filter & Style Edges
+            // 2. Filter & Style Edges (only edges toggle with comprehensive flow)
             const safeInitialEdges = Array.isArray(initialEdges) ? initialEdges : [];
             const filteredEdges = safeInitialEdges.filter(edge =>
                 experimentSettings.showComplexFlows || edge.data?.scenario !== 'complex'
@@ -165,6 +161,38 @@ function FlowCanvas() {
         if (zoomLevel >= 1.2) return 'detailed';
         if (zoomLevel < 0.8) return 'overview';
         return 'standard';
+    }, [zoomLevel]);
+
+    // Track previous zoom level for detecting zoom direction
+    const prevZoomRef = useRef(zoomLevel);
+    const hasUserInteracted = useRef(false);
+
+    // Auto-toggle comprehensive flow based on zoom level
+    // Enable when zooming INTO Standard+ (80%+), disable when zooming OUT to Overview (<80%)
+    useEffect(() => {
+        const prevZoom = prevZoomRef.current;
+        const currentZoom = zoomLevel;
+
+        // Skip auto-toggle until user has interacted (zoomed)
+        if (!hasUserInteracted.current) {
+            if (Math.abs(currentZoom - prevZoom) > 0.01) {
+                hasUserInteracted.current = true;
+            } else {
+                prevZoomRef.current = currentZoom;
+                return;
+            }
+        }
+
+        // Zooming IN to Standard+ level
+        if (currentZoom >= 0.8 && prevZoom < 0.8) {
+            setExperimentSettings(prev => ({ ...prev, showComplexFlows: true }));
+        }
+        // Zooming OUT to Overview level
+        else if (currentZoom < 0.8 && prevZoom >= 0.8) {
+            setExperimentSettings(prev => ({ ...prev, showComplexFlows: false }));
+        }
+
+        prevZoomRef.current = currentZoom;
     }, [zoomLevel]);
 
     // Minimap node color based on category

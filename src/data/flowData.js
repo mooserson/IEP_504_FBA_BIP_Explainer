@@ -244,7 +244,7 @@ than core instruction.
     {
         id: 'tier-3',
         type: 'processNode',
-        position: { x: 950, y: 640 },
+        position: { x: 1050, y: 640 },
         data: {
             category: NODE_CATEGORIES.MTSS,
             label: 'Tier 3: Intensive Interventions',
@@ -274,7 +274,7 @@ participation in the MTSS/RTI process.`,
     {
         id: 'tier-3-check',
         type: 'decisionNode',
-        position: { x: 950, y: 860 },
+        position: { x: 1050, y: 860 },
         data: {
             category: NODE_CATEGORIES.DECISION,
             label: 'T3: Adequate Progress?',
@@ -367,7 +367,7 @@ the signed written consent.
             summary: '60 school days to complete full evaluation',
             detail: `A **comprehensive evaluation** assesses all areas of suspected disability.
 
-**Timeline:** 60 school days from receipt of consent to complete evaluation AND hold eligibility meeting.
+**Timeline:** **60 school days** from receipt of consent to complete evaluation AND hold eligibility meeting.
 (Note: If <60 days left in school year, must be done by first day of next year)
 
 **Assessment Areas:**
@@ -379,11 +379,17 @@ the signed written consent.
 • Health & developmental history
 
 **Key Requirements:**
-• Use variety of assessment tools
-• No single measure determines eligibility
-• Assess in all areas of suspected disability
+• Use **variety of assessment tools** — no single measure determines eligibility
+• Assess in **all areas of suspected disability**
 • Conducted by qualified professionals
 • Non-discriminatory procedures
+• Technically sound instruments
+
+**Exclusionary Factors (Must Rule Out):**
+The team must determine that poor performance is NOT primarily due to:
+• **Lack of appropriate instruction** in reading or math
+• **Limited English proficiency** (EL/ELL status)
+• **Environmental, cultural, or economic factors**
 
 **Team Members May Include:**
 • School psychologist
@@ -391,7 +397,9 @@ the signed written consent.
 • General education teacher
 • Speech-language pathologist
 • Social worker
-• Other specialists as needed`,
+• Other specialists as needed
+
+**Reference:** ISBE Part 226.110`,
         },
     },
 
@@ -406,10 +414,12 @@ the signed written consent.
             summary: 'Team reviews data to determine eligibility',
             detail: `The team meets to determine if the student is **eligible for special education**.
 
-**IDEA Eligibility Requires BOTH:**
-1. Student has one of 13 disability categories
-2. Disability adversely affects educational performance
-3. Student needs specially designed instruction
+**Three-Prong IDEA Eligibility Test:**
+1. **Disability:** Student has one of 14 IDEA disability categories
+2. **Adverse Effect:** Disability adversely affects educational performance
+3. **Need for SDI:** Student requires specially designed instruction
+
+⚠️ **All three prongs must be met.** If a student has a disability but it does NOT adversely affect educational performance, they are not eligible for an IEP — consider 504 Plan instead.
 
 **14 IDEA Disability Categories:**
 • Autism • Deaf-Blindness • Deafness
@@ -425,7 +435,7 @@ the signed written consent.
 • Must provide written notice of eligibility determination within **10 school days** of meeting
 
 **If NOT Eligible for IEP:**
-Consider 504 Plan eligibility`,
+Consider 504 Plan eligibility — 504 has a broader definition of disability and does not require specially designed instruction.`,
         },
     },
 
@@ -515,6 +525,8 @@ Consider 504 Plan eligibility`,
             summary: 'Systematic analysis of behavior function',
             detail: `An **FBA** identifies WHY a behavior is occurring.
 
+⚠️ **Parent Consent Required:** An FBA is considered an evaluation and requires written parental consent before conducting (ISBE Part 226.75).
+
 **Purpose:**
 Understand the function of behavior to develop effective interventions
 
@@ -525,17 +537,25 @@ Understand the function of behavior to develop effective interventions
 • What maintains the behavior?
 
 **Data Collection Methods:**
-• Direct observation
+
+*Indirect Methods:*
 • Interviews (teacher, parent, student)
-• Review of records
+• Review of records and existing data
+• Rating scales and checklists
+
+*Direct Methods:*
+• Structured observations
 • ABC data (Antecedent-Behavior-Consequence)
-• Functional Analysis (sometimes)
+• Scatterplot analysis
+• Functional Analysis (controlled conditions)
 
 **Functions of Behavior (SEAT):**
-• Sensory/Automatic
-• Escape/Avoidance
-• Attention
-• Tangible`,
+• **S**ensory/Automatic — internal stimulation
+• **E**scape/Avoidance — get away from task/person/setting
+• **A**ttention — gain response from others
+• **T**angible — obtain object, activity, or preferred item
+
+**Reference:** ISBE Part 226.75`,
         },
     },
 
@@ -547,29 +567,39 @@ Understand the function of behavior to develop effective interventions
             category: NODE_CATEGORIES.FBA_BIP,
             label: 'Behavior Intervention Plan',
             summary: 'Written plan to address behavior based on FBA',
-            detail: `A **BIP** is developed based on FBA findings to reduce challenging behaviors 
+            detail: `A **BIP** is developed based on FBA findings to reduce challenging behaviors
 and teach replacement skills.
 
 **BIP Components:**
-• Target behavior defined
-• Hypothesis statement (function)
-• Prevention strategies
+• Target behavior defined (observable, measurable)
+• Hypothesis statement (function from FBA)
+• Prevention/antecedent strategies
 • Teaching replacement behaviors
-• Response strategies
+• Response strategies (reinforcement & consequences)
 • Data collection plan
-• Crisis plan (if needed)
+• **Crisis/safety plan** (if behavior poses risk)
 
-**Key Principles:**
-• Based on FBA data
-• Positive, not punitive
-• Teach "replacement" behaviors
-• Function-based interventions
+**Skill vs. Performance Deficit:**
+• **Skill Deficit:** Student doesn't know HOW — teach the skill
+• **Performance Deficit:** Student knows but doesn't DO — increase motivation/reinforcement
+
+**Replacement Behavior Requirement:**
+Must teach a functionally equivalent replacement behavior that:
+• Serves the same function as problem behavior
+• Is more socially appropriate
+• Is easier/more efficient for the student
 
 **Implementation:**
-• All staff trained
-• Consistent implementation
-• Regular data review
-• Adjust as needed`,
+• All staff trained on the plan
+• **Caregiver coordination** — share strategies with parents for consistency
+• Consistent implementation across settings
+• Regular data review (progress monitoring)
+• Adjust based on data
+
+**Key Principles:**
+• Based on FBA data — function-matched interventions
+• Positive and proactive, not punitive
+• Environmentally focused — modify setting events and antecedents`,
         },
     },
 
@@ -740,13 +770,27 @@ Progress monitoring continues to ensure ongoing success.`,
             category: NODE_CATEGORIES.ENDPOINT,
             label: 'Evaluation Denied',
             summary: 'School declines to evaluate',
-            detail: `Key Point: Parents must be given written notice (PWN) explaining why.
-            
-Options:
-1. Review data/reasons
-2. Request mediation/due process
-3. Seek outside evaluation (IEE)
-4. Pursue 504 Plan`,
+            detail: `**Prior Written Notice (PWN) Required**
+Schools must provide written explanation of why they are refusing to evaluate.
+
+**Parent Options:**
+
+**1. Independent Educational Evaluation (IEE) at Public Expense**
+Parents have the right to request an IEE at school district expense if they disagree with the school's evaluation (or refusal to evaluate). The district must either:
+• Pay for the IEE, OR
+• File for due process to prove their evaluation was appropriate
+(ISBE Part 226.180)
+
+**2. Dispute Resolution Options:**
+• **Mediation** — voluntary, facilitated meeting (free to parents)
+• **State Complaint** — file with ISBE within 1 year
+• **Due Process Hearing** — formal legal proceeding within 2 years
+
+**3. Other Paths:**
+• Request meeting to review data/reasons
+• Pursue 504 Plan if appropriate
+• Obtain private evaluation (parent expense)
+• Return to MTSS interventions`,
             scenario: 'complex',
         },
     },
@@ -758,7 +802,50 @@ Options:
             category: NODE_CATEGORIES.REFERRAL,
             label: 'Parent Request',
             summary: 'Direct request for evaluation',
-            detail: `Parents can request an evaluation at any time, bypassing MTSS tiers if they suspect a disability.`,
+            detail: `Parents can request a special education evaluation **at any time**.
+
+⚠️ **Schools CANNOT delay evaluation due to MTSS/RTI.**
+A parent's written request for evaluation triggers the school's obligation to respond — the student does NOT need to "fail" through intervention tiers first.
+
+**Key Points:**
+• Written request is recommended (creates documentation)
+• School must respond within **14 school days** (IL)
+• School must either agree to evaluate OR provide written explanation of denial
+• Parent rights remain throughout the process
+
+**Reference:** ISBE Part 226.110(a)`,
+            scenario: 'complex',
+        },
+    },
+
+    // ===== MANIFESTATION DETERMINATION =====
+    {
+        id: 'manifestation-determination',
+        type: 'decisionNode',
+        position: { x: 650, y: 3150 },
+        data: {
+            category: NODE_CATEGORIES.DECISION,
+            label: 'Manifestation Determination',
+            summary: 'Is behavior a manifestation of disability?',
+            detail: `**Manifestation Determination Review (MDR)**
+
+Required when student is removed for 10+ school days (cumulative or consecutive).
+
+**The Team Must Determine:**
+1. Was the behavior caused by the disability?
+2. Was it a direct result of failure to implement IEP?
+
+**If YES (Is Manifestation):**
+• Student returns to placement (unless parent/school agree otherwise)
+• FBA must be conducted (if not already done)
+• BIP developed or reviewed
+
+**If NO (Not Manifestation):**
+• Same discipline as non-disabled peers
+• Continue FAPE during removal
+
+**Timeline:** Must occur within 10 school days of removal decision.
+**Reference:** ISBE Part 226.400`,
             scenario: 'complex',
         },
     },
@@ -874,6 +961,56 @@ export const initialEdges = [
     // 504 flow
     { id: 'e-504-elig-plan', source: '504-eligibility', target: '504-plan', label: 'Develop Plan' },
     { id: 'e-504-plan-impl', source: '504-plan', target: '504-implementation', label: 'Implement' },
+
+    // Manifestation Determination pathway (Complex)
+    {
+        id: 'e-iep-mdr',
+        source: 'iep-implementation',
+        target: 'manifestation-determination',
+        label: 'Discipline 10+ Days',
+        type: 'smoothstep',
+        style: { strokeDasharray: '5 5' },
+        data: { scenario: 'complex' }
+    },
+    {
+        id: 'e-mdr-fba',
+        source: 'manifestation-determination',
+        target: 'fba',
+        label: 'Yes - Is Manifestation',
+        type: 'smoothstep',
+        data: { scenario: 'complex' }
+    },
+
+    // Gen-Ed FBA/BIP via MTSS - behavior concern without IEP (Complex)
+    {
+        id: 'e-tier2-fba',
+        source: 'tier-2-check',
+        target: 'fba',
+        label: 'Behavior Concern',
+        type: 'smoothstep',
+        style: { strokeDasharray: '5 5' },
+        data: { scenario: 'complex' }
+    },
+    {
+        id: 'e-tier3-fba',
+        source: 'tier-3-check',
+        target: 'fba',
+        label: 'Behavior Concern',
+        type: 'smoothstep',
+        style: { strokeDasharray: '5 5' },
+        data: { scenario: 'complex' }
+    },
+
+    // Triennial Reevaluation loop (Complex)
+    {
+        id: 'e-review-reeval',
+        source: 'annual-review',
+        target: 'evaluation',
+        label: 'Triennial Reevaluation',
+        type: 'smoothstep',
+        style: { strokeDasharray: '5 5' },
+        data: { scenario: 'complex' }
+    },
 ];
 
 // Color mapping for categories
