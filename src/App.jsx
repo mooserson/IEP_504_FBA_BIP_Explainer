@@ -57,6 +57,7 @@ function FlowCanvas() {
     const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
     const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
     const [zoomLevel, setZoomLevel] = useState(1);
+    const [hoveredNodeId, setHoveredNodeId] = useState(null);
     const { fitView } = useReactFlow();
 
     // Handle Experiment Settings
@@ -116,12 +117,26 @@ function FlowCanvas() {
                     newEdge.markerEnd = { ...defaultEdgeOptions.markerEnd };
 
                     // Restore original animations if any
-                    // (But we iterate generic edges, so we rely on edge.animated property from source)
                     newEdge.animated = edge.animated || false;
+                }
 
-                    // If flow animation is OFF, we might still want the specific edges that are ALWAYS animated (like dotted return paths) to be animated?
-                    // In flowData.js, some return paths have animated: true.
-                    // The above logic `newEdge.animated = edge.animated || false` preserves that.
+                // Apply hover-based highlighting
+                if (hoveredNodeId) {
+                    const isConnected = edge.source === hoveredNodeId || edge.target === hoveredNodeId;
+                    if (isConnected) {
+                        // Glow effect for connected edges
+                        newEdge.style = {
+                            ...newEdge.style,
+                            strokeWidth: 4,
+                            filter: 'drop-shadow(0 0 6px currentColor)',
+                        };
+                    } else {
+                        // Dim unconnected edges
+                        newEdge.style = {
+                            ...newEdge.style,
+                            opacity: 0.15,
+                        };
+                    }
                 }
 
                 return newEdge;
@@ -131,7 +146,16 @@ function FlowCanvas() {
             console.error('Error updating flow visualization:', err);
         }
 
-    }, [experimentSettings, setNodes, setEdges]);
+    }, [experimentSettings, hoveredNodeId, setNodes, setEdges]);
+
+    // Handle node hover for edge highlighting
+    const onNodeMouseEnter = useCallback((event, node) => {
+        setHoveredNodeId(node.id);
+    }, []);
+
+    const onNodeMouseLeave = useCallback(() => {
+        setHoveredNodeId(null);
+    }, []);
 
     // Handle zoom changes for semantic zoom
     const onMove = useCallback((event, viewport) => {
@@ -158,6 +182,8 @@ function FlowCanvas() {
                 onNodesChange={onNodesChange}
                 onEdgesChange={onEdgesChange}
                 onMove={onMove}
+                onNodeMouseEnter={onNodeMouseEnter}
+                onNodeMouseLeave={onNodeMouseLeave}
                 nodeTypes={nodeTypes}
                 defaultEdgeOptions={defaultEdgeOptions}
                 fitView
