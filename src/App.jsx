@@ -98,21 +98,17 @@ function FlowCanvas() {
                 // Apply Coloring
                 if (experimentSettings.showColoredEdges) {
                     if (edge.data?.type === 'return') {
-                        newEdge.style = { ...newEdge.style, stroke: 'orange', strokeWidth: 2 };
-                        newEdge.markerEnd = { ...baseMarker, color: 'orange' };
+                        // Orange for return paths (going back in the flow)
+                        newEdge.style = { ...newEdge.style, stroke: '#f59e0b', strokeWidth: 2.5 };
+                        newEdge.markerEnd = { ...baseMarker, color: '#f59e0b' };
                     } else if (edge.data?.type === 'denial') {
-                        newEdge.style = { ...newEdge.style, stroke: 'red', strokeWidth: 2 };
-                        newEdge.markerEnd = { ...baseMarker, color: 'red' };
+                        // Red for denial/ineligibility paths
+                        newEdge.style = { ...newEdge.style, stroke: '#ef4444', strokeWidth: 2.5 };
+                        newEdge.markerEnd = { ...baseMarker, color: '#ef4444' };
                     } else {
-                        if (edge.label && edge.label.toLowerCase().includes('yes')) {
-                            newEdge.style = { ...newEdge.style, stroke: 'green', strokeWidth: 2 };
-                            newEdge.markerEnd = { ...baseMarker, color: 'green' };
-                        } else {
-                            // Reset color if switching back from colored mode or for neutral edges
-                            newEdge.markerEnd = { ...baseMarker, color: defaultEdgeOptions.markerEnd.color };
-                            // But wait, if edge has its own color? 
-                            // We should probably rely on default if not special.
-                        }
+                        // Green for all forward progress paths (default)
+                        newEdge.style = { ...newEdge.style, stroke: '#22c55e', strokeWidth: 2 };
+                        newEdge.markerEnd = { ...baseMarker, color: '#22c55e' };
                     }
                 } else {
                     // Reset to default

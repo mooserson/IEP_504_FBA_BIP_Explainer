@@ -717,6 +717,20 @@ Annually (or as needed)`,
         },
     },
 
+    // ===== SUCCESS OUTCOMES =====
+    {
+        id: 'gen-ed-success',
+        type: 'endpointNode',
+        position: { x: 50, y: 420 },
+        data: {
+            category: NODE_CATEGORIES.ENDPOINT,
+            label: 'Continue General Ed',
+            summary: 'Student successful with universal supports',
+            detail: `Student continues in general education with Tier 1 supports.
+Progress monitoring continues to ensure ongoing success.`,
+        },
+    },
+
     // ===== COMPLEX SCENARIO NODES =====
     {
         id: 'referral-denied',
