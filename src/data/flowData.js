@@ -170,7 +170,7 @@ provided to ALL students in general education.
         position: { x: 400, y: 420 },
         data: {
             category: NODE_CATEGORIES.DECISION,
-            label: 'Adequate Progress?',
+            label: 'T1: Adequate Progress?',
             summary: 'Is the student responding to Tier 1 supports?',
             detail: `The team reviews data to determine if the student is making adequate progress 
 with universal supports.
@@ -223,7 +223,7 @@ than core instruction.
         position: { x: 700, y: 640 },
         data: {
             category: NODE_CATEGORIES.DECISION,
-            label: 'Adequate Progress?',
+            label: 'T2: Adequate Progress?',
             summary: 'Is the student responding to Tier 2 interventions?',
             detail: `Team reviews intervention data to determine response.
 
@@ -277,7 +277,7 @@ participation in the MTSS/RTI process.`,
         position: { x: 950, y: 860 },
         data: {
             category: NODE_CATEGORIES.DECISION,
-            label: 'Adequate Progress?',
+            label: 'T3: Adequate Progress?',
             summary: 'Is intensive intervention sufficient?',
             detail: `Final review before potential special education referral.
 
@@ -735,7 +735,7 @@ Progress monitoring continues to ensure ongoing success.`,
     {
         id: 'referral-denied',
         type: 'endpointNode',
-        position: { x: 950, y: 1100 },
+        position: { x: 1200, y: 1100 },
         data: {
             category: NODE_CATEGORIES.ENDPOINT,
             label: 'Evaluation Denied',

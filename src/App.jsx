@@ -89,12 +89,9 @@ function FlowCanvas() {
                 // Ensure valid markerEnd base
                 const baseMarker = edge.markerEnd || defaultEdgeOptions.markerEnd;
 
-                // Apply Animation
-                if (experimentSettings.animateFlow) {
-                    newEdge.animated = true;
-                } else {
-                    newEdge.animated = edge.animated || false;
-                }
+                // Apply Animation - only to hovered connected edges
+                // (Default to no animation unless hovering with animation toggle on)
+                newEdge.animated = false;
 
                 // Apply Coloring
                 if (experimentSettings.showColoredEdges) {
@@ -115,12 +112,9 @@ function FlowCanvas() {
                     // Reset to default
                     newEdge.style = { ...defaultEdgeOptions.style, ...edge.style };
                     newEdge.markerEnd = { ...defaultEdgeOptions.markerEnd };
-
-                    // Restore original animations if any
-                    newEdge.animated = edge.animated || false;
                 }
 
-                // Apply hover-based highlighting
+                // Apply hover-based highlighting and animation
                 if (hoveredNodeId) {
                     const isConnected = edge.source === hoveredNodeId || edge.target === hoveredNodeId;
                     if (isConnected) {
@@ -130,6 +124,10 @@ function FlowCanvas() {
                             strokeWidth: 4,
                             filter: 'drop-shadow(0 0 6px currentColor)',
                         };
+                        // Animate only connected edges when animation toggle is on
+                        if (experimentSettings.animateFlow) {
+                            newEdge.animated = true;
+                        }
                     } else {
                         // Dim unconnected edges
                         newEdge.style = {
