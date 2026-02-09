@@ -192,7 +192,7 @@ with universal supports.
     {
         id: 'tier-2',
         type: 'processNode',
-        position: { x: 800, y: 420 },
+        position: { x: 700, y: 420 },
         data: {
             category: NODE_CATEGORIES.MTSS,
             label: 'Tier 2: Targeted Interventions',
@@ -220,7 +220,7 @@ than core instruction.
     {
         id: 'tier-2-check',
         type: 'decisionNode',
-        position: { x: 800, y: 640 },
+        position: { x: 700, y: 640 },
         data: {
             category: NODE_CATEGORIES.DECISION,
             label: 'Adequate Progress?',
@@ -244,7 +244,7 @@ than core instruction.
     {
         id: 'tier-3',
         type: 'processNode',
-        position: { x: 1200, y: 640 },
+        position: { x: 950, y: 640 },
         data: {
             category: NODE_CATEGORIES.MTSS,
             label: 'Tier 3: Intensive Interventions',
@@ -274,7 +274,7 @@ participation in the MTSS/RTI process.`,
     {
         id: 'tier-3-check',
         type: 'decisionNode',
-        position: { x: 1200, y: 860 },
+        position: { x: 950, y: 860 },
         data: {
             category: NODE_CATEGORIES.DECISION,
             label: 'Adequate Progress?',
@@ -735,7 +735,7 @@ Progress monitoring continues to ensure ongoing success.`,
     {
         id: 'referral-denied',
         type: 'endpointNode',
-        position: { x: 1200, y: 1100 },
+        position: { x: 950, y: 1100 },
         data: {
             category: NODE_CATEGORIES.ENDPOINT,
             label: 'Evaluation Denied',
@@ -753,7 +753,7 @@ Options:
     {
         id: 'parent-request',
         type: 'processNode',
-        position: { x: 1200, y: 0 },
+        position: { x: 950, y: 0 },
         data: {
             category: NODE_CATEGORIES.REFERRAL,
             label: 'Parent Request',

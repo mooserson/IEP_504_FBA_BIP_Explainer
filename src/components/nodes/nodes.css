@@ -283,6 +283,16 @@
     /* Smaller width */
 }
 
+/* Disable tile expansion on hover at overview zoom */
+.zoom-overview .flow-node.hovered {
+    transform: none;
+}
+
+.zoom-overview .flow-node.hovered .node-detail {
+    max-height: 0;
+    opacity: 0;
+}
+
 /* STANDARD MODE (80% - 120% zoom) */
 /* Standard behavior (hover to expand) - inherited from base styles */
 
