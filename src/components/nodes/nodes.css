@@ -264,14 +264,5 @@
 /* Standard behavior (hover to expand) - inherited from base styles */
 
 /* DETAILED MODE (> 120% zoom) */
-/* Auto-expand details without hover */
-.zoom-detailed .flow-node .node-detail {
-    max-height: 500px;
-    opacity: 1;
-}
-
-/* Ensure hover still works and lifts the node even if already expanded */
-.zoom-detailed .flow-node:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0 20px color-mix(in srgb, var(--node-color) 40%, transparent);
-}
+/* NOTE: Auto-expand ALL tiles was removed - it caused overlap issues.
+   Hover-to-expand now works at all zoom levels via dynamic z-index. */

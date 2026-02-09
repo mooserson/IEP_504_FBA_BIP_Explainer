@@ -13,7 +13,10 @@ function ProcessNode({ data, selected }) {
     return (
         <div
             className={`flow-node process-node ${selected ? 'selected' : ''} ${isHovered ? 'hovered' : ''}`}
-            style={{ '--node-color': borderColor }}
+            style={{
+                '--node-color': borderColor,
+                zIndex: isHovered ? 1000 : 'auto',
+            }}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
