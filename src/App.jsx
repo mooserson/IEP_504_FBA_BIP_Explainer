@@ -51,7 +51,7 @@ function FlowCanvas() {
     const [experimentSettings, setExperimentSettings] = useState({
         showComplexFlows: false,
         showColoredEdges: false,
-        animateFlow: false,
+        animateFlow: true,
     });
 
     const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
@@ -71,15 +71,50 @@ function FlowCanvas() {
     // Effect to update graph based on settings
     useEffect(() => {
         try {
-            // 1. Always show all nodes (no filtering)
-            const safeInitialNodes = Array.isArray(initialNodes) ? initialNodes : [];
-            setNodes(safeInitialNodes);
-
-            // 2. Filter & Style Edges (only edges toggle with comprehensive flow)
+            // 1. Filter edges first (needed for connection computation)
             const safeInitialEdges = Array.isArray(initialEdges) ? initialEdges : [];
-            const filteredEdges = safeInitialEdges.filter(edge =>
+            const filteredEdgeList = safeInitialEdges.filter(edge =>
                 experimentSettings.showComplexFlows || edge.data?.scenario !== 'complex'
-            ).map(edge => {
+            );
+
+            // 2. Build node label lookup
+            const safeInitialNodes = Array.isArray(initialNodes) ? initialNodes : [];
+            const nodeLabels = {};
+            safeInitialNodes.forEach(node => {
+                nodeLabels[node.id] = node.data?.label || node.id;
+            });
+
+            // 3. Compute connections for each node based on visible edges (store labels, not IDs)
+            const nodeConnections = {};
+            filteredEdgeList.forEach(edge => {
+                // Track outgoing connections (source -> target) with edge label
+                if (!nodeConnections[edge.source]) {
+                    nodeConnections[edge.source] = { incoming: [], outgoing: [] };
+                }
+                nodeConnections[edge.source].outgoing.push({
+                    name: nodeLabels[edge.target] || edge.target,
+                    edgeLabel: edge.label || ''
+                });
+
+                // Track incoming connections (target <- source)
+                if (!nodeConnections[edge.target]) {
+                    nodeConnections[edge.target] = { incoming: [], outgoing: [] };
+                }
+                nodeConnections[edge.target].incoming.push(nodeLabels[edge.source] || edge.source);
+            });
+
+            // 4. Update nodes with connection data
+            const nodesWithConnections = safeInitialNodes.map(node => ({
+                ...node,
+                data: {
+                    ...node.data,
+                    connections: nodeConnections[node.id] || { incoming: [], outgoing: [] }
+                }
+            }));
+            setNodes(nodesWithConnections);
+
+            // 5. Style Edges
+            const filteredEdges = filteredEdgeList.map(edge => {
                 const newEdge = { ...edge, style: { ...edge.style } };
 
                 // Ensure valid markerEnd base
@@ -335,6 +370,7 @@ function Legend() {
         { label: 'MTSS/RTI', color: categoryColors[NODE_CATEGORIES.MTSS] },
         { label: 'Referral', color: categoryColors[NODE_CATEGORIES.REFERRAL] },
         { label: 'Evaluation', color: categoryColors[NODE_CATEGORIES.EVALUATION] },
+        { label: 'Decision', color: categoryColors[NODE_CATEGORIES.DECISION] },
         { label: 'IEP', color: categoryColors[NODE_CATEGORIES.IEP] },
         { label: '504 Plan', color: categoryColors[NODE_CATEGORIES.PLAN_504] },
         { label: 'FBA/BIP', color: categoryColors[NODE_CATEGORIES.FBA_BIP] },

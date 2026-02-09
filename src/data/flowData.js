@@ -356,11 +356,51 @@ the signed written consent.
         },
     },
 
+    // ===== DOMAIN MEETING =====
+    {
+        id: 'domain-meeting',
+        type: 'processNode',
+        position: { x: 800, y: 1360 },
+        data: {
+            category: NODE_CATEGORIES.EVALUATION,
+            label: 'Domain Meeting',
+            summary: 'Team determines evaluation areas',
+            meetingRequired: true,
+            detail: `The **Domain Meeting** determines what areas will be assessed in the evaluation.
+
+**Purpose:**
+Identify all areas of suspected disability that need to be evaluated.
+
+**Team Reviews:**
+• Existing data (grades, assessments, observations)
+• Parent input and concerns
+• Teacher observations
+• Previous interventions and results
+
+**Domains May Include:**
+• Cognitive/Intellectual
+• Academic Achievement
+• Communication/Speech-Language
+• Social/Emotional/Behavioral
+• Motor/Physical
+• Adaptive Behavior
+• Health/Medical
+
+**Outcome:**
+Written evaluation plan specifying:
+• Areas to be assessed
+• Evaluation methods
+• Professionals responsible
+
+**Timeline:** Typically held shortly after consent is received.`,
+        },
+    },
+
     // ===== EVALUATION =====
     {
         id: 'evaluation',
         type: 'processNode',
-        position: { x: 800, y: 1500 },
+        position: { x: 800, y: 1580 },
         data: {
             category: NODE_CATEGORIES.EVALUATION,
             label: 'Comprehensive Evaluation',
@@ -407,10 +447,11 @@ The team must determine that poor performance is NOT primarily due to:
     {
         id: 'eligibility-meeting',
         type: 'processNode',
-        position: { x: 800, y: 1780 },
+        position: { x: 800, y: 1860 },
         data: {
             category: NODE_CATEGORIES.EVALUATION,
             label: 'Eligibility Determination',
+            meetingRequired: true,
             summary: 'Team reviews data to determine eligibility',
             detail: `The team meets to determine if the student is **eligible for special education**.
 
@@ -442,7 +483,7 @@ Consider 504 Plan eligibility — 504 has a broader definition of disability and
     {
         id: 'eligibility-decision',
         type: 'decisionNode',
-        position: { x: 800, y: 2050 },
+        position: { x: 800, y: 2130 },
         data: {
             category: NODE_CATEGORIES.DECISION,
             label: 'Eligible?',
@@ -460,10 +501,11 @@ Consider 504 Plan eligibility — 504 has a broader definition of disability and
     {
         id: 'iep-development',
         type: 'processNode',
-        position: { x: 400, y: 2300 },
+        position: { x: 400, y: 2380 },
         data: {
             category: NODE_CATEGORIES.IEP,
             label: 'IEP Development',
+            meetingRequired: true,
             summary: 'Team develops Individualized Education Program',
             detail: `If eligible, the team develops an **Individualized Education Program (IEP)**.
 
@@ -493,7 +535,7 @@ Consider 504 Plan eligibility — 504 has a broader definition of disability and
     {
         id: 'behavior-concern',
         type: 'decisionNode',
-        position: { x: 200, y: 2550 },
+        position: { x: 200, y: 2630 },
         data: {
             category: NODE_CATEGORIES.DECISION,
             label: 'Behavior Impacting Learning?',
@@ -518,7 +560,7 @@ Consider 504 Plan eligibility — 504 has a broader definition of disability and
     {
         id: 'fba',
         type: 'processNode',
-        position: { x: -100, y: 2800 },
+        position: { x: -100, y: 2880 },
         data: {
             category: NODE_CATEGORIES.FBA_BIP,
             label: 'Functional Behavior Assessment',
@@ -562,7 +604,7 @@ Understand the function of behavior to develop effective interventions
     {
         id: 'bip',
         type: 'processNode',
-        position: { x: -100, y: 3100 },
+        position: { x: -100, y: 3180 },
         data: {
             category: NODE_CATEGORIES.FBA_BIP,
             label: 'Behavior Intervention Plan',
@@ -606,7 +648,7 @@ Must teach a functionally equivalent replacement behavior that:
     {
         id: 'iep-implementation',
         type: 'processNode',
-        position: { x: 400, y: 3000 },
+        position: { x: 400, y: 3080 },
         data: {
             category: NODE_CATEGORIES.IEP,
             label: 'IEP Implementation',
@@ -634,10 +676,11 @@ in the Least Restrictive Environment (LRE)`,
     {
         id: 'annual-review',
         type: 'processNode',
-        position: { x: 400, y: 3280 },
+        position: { x: 400, y: 3360 },
         data: {
             category: NODE_CATEGORIES.IEP,
             label: 'Annual Review',
+            meetingRequired: true,
             summary: 'IEP reviewed at least once per year',
             detail: `The IEP must be reviewed **at least annually**.
 
@@ -663,7 +706,7 @@ Every 3 years (or sooner if requested)
     {
         id: '504-eligibility',
         type: 'processNode',
-        position: { x: 1200, y: 2300 },
+        position: { x: 1200, y: 2380 },
         data: {
             category: NODE_CATEGORIES.PLAN_504,
             label: '504 Eligibility',
@@ -694,10 +737,11 @@ one or more major life activities.
     {
         id: '504-plan',
         type: 'processNode',
-        position: { x: 1200, y: 2580 },
+        position: { x: 1200, y: 2660 },
         data: {
             category: NODE_CATEGORIES.PLAN_504,
             label: '504 Plan Development',
+            meetingRequired: true,
             summary: 'Team develops accommodations plan',
             detail: `A **504 Plan** outlines accommodations to provide equal access.
 
@@ -728,7 +772,7 @@ Annually (or as needed)`,
     {
         id: '504-implementation',
         type: 'endpointNode',
-        position: { x: 1200, y: 2860 },
+        position: { x: 1200, y: 2940 },
         data: {
             category: NODE_CATEGORIES.PLAN_504,
             label: '504 Plan Implementation',
@@ -822,11 +866,12 @@ A parent's written request for evaluation triggers the school's obligation to re
     {
         id: 'manifestation-determination',
         type: 'decisionNode',
-        position: { x: 650, y: 3150 },
+        position: { x: 650, y: 3230 },
         data: {
             category: NODE_CATEGORIES.DECISION,
             label: 'Manifestation Determination',
             summary: 'Is behavior a manifestation of disability?',
+            meetingRequired: true,
             detail: `**Manifestation Determination Review (MDR)**
 
 Required when student is removed for 10+ school days (cumulative or consecutive).
@@ -928,7 +973,8 @@ export const initialEdges = [
         data: { scenario: 'complex' }
     },
 
-    { id: 'e-consent-eval', source: 'consent', target: 'evaluation', label: 'Begin Evaluation' },
+    { id: 'e-consent-domain', source: 'consent', target: 'domain-meeting', label: 'Schedule Meeting' },
+    { id: 'e-domain-eval', source: 'domain-meeting', target: 'evaluation', label: 'Begin Evaluation' },
 
     // Evaluation flow
     { id: 'e-eval-eligibility', source: 'evaluation', target: 'eligibility-meeting', label: 'Complete Assessment' },

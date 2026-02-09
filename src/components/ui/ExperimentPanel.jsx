@@ -1,19 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './ExperimentPanel.css';
 
 function ExperimentPanel({
     settings,
     onSettingChange
 }) {
+    const [isExpanded, setIsExpanded] = useState(false);
+
     if (!settings) return null;
 
     return (
-        <div className="experiment-panel">
-            <div className="experiment-header">
-                <h3>🧪 Experiments</h3>
-            </div>
+        <div className={`experiment-panel ${isExpanded ? 'expanded' : 'collapsed'}`}>
+            <button
+                className="experiment-toggle"
+                onClick={() => setIsExpanded(!isExpanded)}
+                title={isExpanded ? 'Collapse experiments' : 'Expand experiments'}
+            >
+                🧪 {isExpanded ? '▼' : '▶'}
+            </button>
 
-            <div className="experiment-controls">
+            {isExpanded && (
+                <>
+                    <div className="experiment-header">
+                        <h3>Experiments</h3>
+                    </div>
+
+                    <div className="experiment-controls">
                 {/* Complexity Toggle */}
                 <div className="experiment-control">
                     <label className="toggle-label">
@@ -52,7 +64,9 @@ function ExperimentPanel({
                     </label>
                     <p className="control-description">Show direction of flow with animation</p>
                 </div>
-            </div>
+                    </div>
+                </>
+            )}
         </div>
     );
 }

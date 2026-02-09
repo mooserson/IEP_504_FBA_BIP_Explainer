@@ -1,21 +1,49 @@
 .experiment-panel {
     position: absolute;
-    bottom: 60px;
+    bottom: 140px;
     left: 20px;
     background: var(--color-bg-secondary);
     border: 1px solid var(--color-border);
     border-radius: 8px;
     max-width: 280px;
     z-index: 50;
-    /* Above React Flow but below modals */
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     overflow: hidden;
     font-size: 14px;
 }
 
+.experiment-panel.collapsed {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.experiment-toggle {
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    padding: 6px 10px;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--color-text-primary);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.experiment-toggle:hover {
+    background: var(--color-bg-card);
+}
+
+.experiment-panel.expanded .experiment-toggle {
+    border-radius: 6px 6px 0 0;
+    border-bottom: none;
+    width: 100%;
+}
+
 .experiment-header {
     background: rgba(var(--color-primary-rgb), 0.1);
-    padding: 10px 15px;
+    padding: 8px 15px;
     border-bottom: 1px solid var(--color-border);
 }
 

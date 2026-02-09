@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run build:*)",
+      "Bash(npm run dev:*)",
+      "Bash(curl:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nAdd MDR node, enhanced content, auto-comprehensive flow toggle\n\n- Add Manifestation Determination node with MDR requirements \\(Part 226.400\\)\n- Add 5 new edges: MDR pathway, Gen-Ed FBA/BIP from MTSS, Triennial Reevaluation\n- Enhance content: eligibility 3-prong test, evaluation exclusionary factors,\n  FBA consent requirement, BIP skill/performance deficit, parent request rights,\n  referral denied IEE options\n- Auto-enable comprehensive flow when zooming in \\(80%+\\), disable on zoom out\n- Add detail expansion to DecisionNode \\(left-aligned text\\)\n- Move Tier 3 nodes right to prevent overlap with T2 decision\n- Adjust ExperimentPanel position to avoid React Flow controls\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git push:*)",
+      "Bash(git remote set-url:*)",
+      "Bash(gh auth:*)",
+      "Bash(gh workflow:*)",
+      "Bash(gh run list:*)",
+      "Bash(npm run deploy:*)",
+      "Bash(gh repo view:*)",
+      "Bash(gh api:*)",
+      "Bash(git commit:*)"
+    ]
+  }
+}

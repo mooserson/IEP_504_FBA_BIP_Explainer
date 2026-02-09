@@ -51,7 +51,35 @@ function ProcessNode({ data, selected }) {
                 <h3 className="node-title">{data.label}</h3>
             </div>
 
+            {data.meetingRequired && (
+                <span className="meeting-badge">Meeting Required</span>
+            )}
+
             <p className="node-summary">{data.summary}</p>
+
+            {/* Connection badges - shown when not expanded */}
+            {!isHovered && data.connections && (data.connections.incoming.length > 0 || data.connections.outgoing.length > 0) && (
+                <div className="node-connections">
+                    {data.connections.incoming.length > 0 && (
+                        <div className="connection-group">
+                            <span className="connection-label">IN:</span>
+                            {data.connections.incoming.map((name, i) => (
+                                <span key={i} className="connection-badge incoming">{name}</span>
+                            ))}
+                        </div>
+                    )}
+                    {data.connections.outgoing.length > 0 && (
+                        <div className="connection-group">
+                            <span className="connection-label">OUT:</span>
+                            {data.connections.outgoing.map((conn, i) => (
+                                <span key={i} className="connection-badge outgoing">
+                                    {typeof conn === 'string' ? conn : conn.name}
+                                </span>
+                            ))}
+                        </div>
+                    )}
+                </div>
+            )}
 
             <div
                 ref={detailRef}
@@ -63,6 +91,30 @@ function ProcessNode({ data, selected }) {
                         __html: formatMarkdown(data.detail)
                     }}
                 />
+
+                {/* Connection badges - shown when expanded (after detail content) */}
+                {data.connections && (data.connections.incoming.length > 0 || data.connections.outgoing.length > 0) && (
+                    <div className="node-connections">
+                        {data.connections.incoming.length > 0 && (
+                            <div className="connection-group">
+                                <span className="connection-label">IN:</span>
+                                {data.connections.incoming.map((name, i) => (
+                                    <span key={i} className="connection-badge incoming">{name}</span>
+                                ))}
+                            </div>
+                        )}
+                        {data.connections.outgoing.length > 0 && (
+                            <div className="connection-group">
+                                <span className="connection-label">OUT:</span>
+                                {data.connections.outgoing.map((conn, i) => (
+                                    <span key={i} className="connection-badge outgoing">
+                                        {typeof conn === 'string' ? conn : conn.name}
+                                    </span>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                )}
             </div>
 
             <Handle type="source" position={Position.Bottom} />
