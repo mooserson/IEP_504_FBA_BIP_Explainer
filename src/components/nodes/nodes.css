@@ -79,11 +79,32 @@
     transition: max-height var(--transition-slow), opacity var(--transition-slow);
 }
 
-/* Show details on hover - scrollable if content is tall */
+/* Show details on hover - expanded to show more content without scroll */
+/* Note: scroll doesn't work well with React Flow's zoom behavior */
 .flow-node.hovered .node-detail {
-    max-height: 200px;
+    max-height: 400px;
     overflow-y: auto;
     opacity: 1;
+    cursor: auto;
+}
+
+/* Scrollbar styling for detail section */
+.node-detail::-webkit-scrollbar {
+    width: 6px;
+}
+
+.node-detail::-webkit-scrollbar-track {
+    background: var(--color-bg-card);
+    border-radius: 3px;
+}
+
+.node-detail::-webkit-scrollbar-thumb {
+    background: var(--color-primary-light);
+    border-radius: 3px;
+}
+
+.node-detail::-webkit-scrollbar-thumb:hover {
+    background: var(--color-primary);
 }
 
 .node-detail-content {

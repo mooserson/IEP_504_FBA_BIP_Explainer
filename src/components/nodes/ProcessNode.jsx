@@ -1,14 +1,38 @@
 /**
  * ProcessNode - Standard process step node with semantic zoom
  */
-import { memo, useState } from 'react';
+import { memo, useState, useRef, useEffect } from 'react';
 import { Handle, Position } from '@xyflow/react';
 import { categoryColors } from '../../data/flowData';
 import './nodes.css';
 
 function ProcessNode({ data, selected }) {
     const [isHovered, setIsHovered] = useState(false);
+    const detailRef = useRef(null);
     const borderColor = categoryColors[data.category] || 'var(--color-primary)';
+
+    // Use capture phase to intercept wheel events before React Flow
+    useEffect(() => {
+        const detailEl = detailRef.current;
+        if (!detailEl) return;
+
+        const handleWheel = (e) => {
+            // Only capture and prevent if the tile is expanded (has visible scrollable content)
+            const isExpanded = detailEl.scrollHeight > 0 && detailEl.clientHeight > 0;
+            const hasScrollableContent = detailEl.scrollHeight > detailEl.clientHeight;
+
+            if (isExpanded || hasScrollableContent) {
+                e.stopPropagation();
+                e.preventDefault();
+
+                // Manually scroll the detail element
+                detailEl.scrollTop += e.deltaY;
+            }
+        };
+
+        detailEl.addEventListener('wheel', handleWheel, { passive: false, capture: true });
+        return () => detailEl.removeEventListener('wheel', handleWheel, { capture: true });
+    }, [isHovered]);
 
     return (
         <div
@@ -29,7 +53,10 @@ function ProcessNode({ data, selected }) {
 
             <p className="node-summary">{data.summary}</p>
 
-            <div className="node-detail">
+            <div
+                ref={detailRef}
+                className="node-detail nowheel nodrag nopan"
+            >
                 <div
                     className="node-detail-content"
                     dangerouslySetInnerHTML={{
