@@ -6,6 +6,12 @@
     pointer-events: none !important;
 }
 
+/* Keep tiles hoverable even when interactivity is locked */
+/* React Flow's lock disables pointer-events on nodes, we override for hover */
+.react-flow__node {
+    pointer-events: auto !important;
+}
+
 .flow-node {
     background: var(--color-bg-secondary);
     border: 2px solid var(--node-color, var(--color-border));
@@ -70,12 +76,13 @@
     max-height: 0;
     overflow: hidden;
     opacity: 0;
-    transition: all var(--transition-slow);
+    transition: max-height var(--transition-slow), opacity var(--transition-slow);
 }
 
-/* Show details on hover */
+/* Show details on hover - scrollable if content is tall */
 .flow-node.hovered .node-detail {
-    max-height: 500px;
+    max-height: 200px;
+    overflow-y: auto;
     opacity: 1;
 }
 
