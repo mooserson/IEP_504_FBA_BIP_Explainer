@@ -3,5 +3,6 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: process.env.NODE_ENV === 'production' ? '/IEP_504_FBA_BIP_Explainer/' : '/',
+  // Use /IEP_504_FBA_BIP_Explainer/ for GitHub Pages, / for Render and local
+  base: process.env.GITHUB_PAGES === 'true' ? '/IEP_504_FBA_BIP_Explainer/' : '/',
 })
