@@ -330,9 +330,10 @@
    ========================================= */
 
 /* OVERVIEW MODE (< 80% zoom) */
-/* Hide summaries, badges, make titles larger */
+/* Hide summaries, badges, meeting badges, make titles larger */
 .zoom-overview .flow-node .node-summary,
-.zoom-overview .flow-node .node-connections {
+.zoom-overview .flow-node .node-connections,
+.zoom-overview .flow-node .meeting-badge {
     display: none;
 }
 
