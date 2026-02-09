@@ -1,14 +1,9 @@
 /* Custom Node Styles */
 
 /* Disable pointer-events on handles so entire tile is hoverable */
+/* Since nodesConnectable={false}, we don't need interactive handles */
 .react-flow__handle {
     pointer-events: none !important;
-}
-
-/* Re-enable handle interaction only when actively connecting */
-.react-flow__handle.connectionindicator,
-.react-flow__handle:hover {
-    pointer-events: auto !important;
 }
 
 .flow-node {
