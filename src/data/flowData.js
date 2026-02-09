@@ -717,17 +717,35 @@ Annually (or as needed)`,
         },
     },
 
-    // ===== SUCCESS OUTCOMES =====
+    // ===== COMPLEX SCENARIO NODES =====
     {
-        id: 'gen-ed-success',
+        id: 'referral-denied',
         type: 'endpointNode',
-        position: { x: 50, y: 420 },
+        position: { x: 1200, y: 1100 },
         data: {
             category: NODE_CATEGORIES.ENDPOINT,
-            label: 'Continue General Ed',
-            summary: 'Student successful with universal supports',
-            detail: `Student continues in general education with Tier 1 supports.
-Progress monitoring continues to ensure ongoing success.`,
+            label: 'Evaluation Denied',
+            summary: 'School declines to evaluate',
+            detail: `Key Point: Parents must be given written notice (PWN) explaining why.
+            
+Options:
+1. Review data/reasons
+2. Request mediation/due process
+3. Seek outside evaluation (IEE)
+4. Pursue 504 Plan`,
+            scenario: 'complex',
+        },
+    },
+    {
+        id: 'parent-request',
+        type: 'processNode',
+        position: { x: 1200, y: 0 },
+        data: {
+            category: NODE_CATEGORIES.REFERRAL,
+            label: 'Parent Request',
+            summary: 'Direct request for evaluation',
+            detail: `Parents can request an evaluation at any time, bypassing MTSS tiers if they suspect a disability.`,
+            scenario: 'complex',
         },
     },
 ];
@@ -748,12 +766,67 @@ export const initialEdges = [
     { id: 'e-tier2-check', source: 'tier-2', target: 'tier-2-check' },
     { id: 'e-tier2-tier3', source: 'tier-2-check', target: 'tier-3', label: 'No - Intensify' },
 
+    // Tier 2 Return Path (Complex)
+    {
+        id: 'e-tier2-return',
+        source: 'tier-2-check',
+        target: 'gen-ed-success',
+        label: 'Success - Fade Support',
+        type: 'smoothstep',
+        animated: true,
+        style: { strokeDasharray: '5 5' },
+        data: { scenario: 'complex', type: 'return' }
+    },
+
     // Tier 3 flow
     { id: 'e-tier3-check', source: 'tier-3', target: 'tier-3-check' },
     { id: 'e-tier3-referral', source: 'tier-3-check', target: 'referral', label: 'Evaluate for Services' },
 
+    // Tier 3 Return Path (Complex)
+    {
+        id: 'e-tier3-return',
+        source: 'tier-3-check',
+        target: 'tier-2',
+        label: 'Success - Fade to T2',
+        type: 'smoothstep',
+        animated: true,
+        style: { strokeDasharray: '5 5' },
+        data: { scenario: 'complex', type: 'return' }
+    },
+
     // Referral flow
     { id: 'e-referral-consent', source: 'referral', target: 'consent', label: 'Request Consent' },
+
+    // Referral Denied (Complex)
+    {
+        id: 'e-referral-denied',
+        source: 'referral',
+        target: 'referral-denied',
+        label: 'Request Denied',
+        type: 'smoothstep',
+        data: { scenario: 'complex', type: 'denial' }
+    },
+    {
+        id: 'e-denied-return',
+        source: 'referral-denied',
+        target: 'tier-3',
+        label: 'Return to MTSS',
+        type: 'smoothstep',
+        style: { strokeDasharray: '5 5' },
+        data: { scenario: 'complex', type: 'return' }
+    },
+
+    // Parent Request (Complex)
+    {
+        id: 'e-parent-request',
+        source: 'parent-request',
+        target: 'referral',
+        label: 'Direct Request',
+        type: 'smoothstep',
+        animated: true,
+        data: { scenario: 'complex' }
+    },
+
     { id: 'e-consent-eval', source: 'consent', target: 'evaluation', label: 'Begin Evaluation' },
 
     // Evaluation flow
@@ -763,6 +836,17 @@ export const initialEdges = [
     // Eligibility decisions
     { id: 'e-eligible-iep', source: 'eligibility-decision', target: 'iep-development', label: 'IEP Eligible', type: 'smoothstep' },
     { id: 'e-eligible-504', source: 'eligibility-decision', target: '504-eligibility', label: '504 Eligible', type: 'smoothstep' },
+
+    // Ineligible (Complex)
+    {
+        id: 'e-ineligible-return',
+        source: 'eligibility-decision',
+        target: 'tier-3',
+        label: 'Not Eligible',
+        type: 'smoothstep',
+        style: { strokeDasharray: '5 5' },
+        data: { scenario: 'complex', type: 'denial' }
+    },
 
     // IEP flow
     { id: 'e-iep-behavior', source: 'iep-development', target: 'behavior-concern', label: 'Assess Behavior' },

@@ -2,7 +2,7 @@
  * Special Education Intervention Flowchart
  * Interactive visualization of 504, IEP, FBA, and BIP processes
  */
-import { useCallback, useState, useMemo } from 'react';
+import { useCallback, useState, useMemo, useEffect } from 'react';
 import {
     ReactFlow,
     Controls,
@@ -44,11 +44,98 @@ const defaultEdgeOptions = {
     },
 };
 
+import ExperimentPanel from './components/ui/ExperimentPanel';
+
 function FlowCanvas() {
+    // Experiment State
+    const [experimentSettings, setExperimentSettings] = useState({
+        showComplexFlows: false,
+        showColoredEdges: false,
+        animateFlow: false,
+    });
+
     const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
     const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
     const [zoomLevel, setZoomLevel] = useState(1);
     const { fitView } = useReactFlow();
+
+    // Handle Experiment Settings
+    const handleSettingChange = useCallback((setting, value) => {
+        setExperimentSettings(prev => {
+            const newSettings = { ...prev, [setting]: value };
+            return newSettings;
+        });
+    }, []);
+
+    // Effect to update graph based on settings
+    useEffect(() => {
+        try {
+            // 1. Filter Nodes based on Complexity
+            const safeInitialNodes = Array.isArray(initialNodes) ? initialNodes : [];
+            const filteredNodes = safeInitialNodes.filter(node =>
+                experimentSettings.showComplexFlows || node.data?.scenario !== 'complex'
+            );
+
+            setNodes(filteredNodes);
+
+            // 2. Filter & Style Edges
+            const safeInitialEdges = Array.isArray(initialEdges) ? initialEdges : [];
+            const filteredEdges = safeInitialEdges.filter(edge =>
+                experimentSettings.showComplexFlows || edge.data?.scenario !== 'complex'
+            ).map(edge => {
+                const newEdge = { ...edge, style: { ...edge.style } };
+
+                // Ensure valid markerEnd base
+                const baseMarker = edge.markerEnd || defaultEdgeOptions.markerEnd;
+
+                // Apply Animation
+                if (experimentSettings.animateFlow) {
+                    newEdge.animated = true;
+                } else {
+                    newEdge.animated = edge.animated || false;
+                }
+
+                // Apply Coloring
+                if (experimentSettings.showColoredEdges) {
+                    if (edge.data?.type === 'return') {
+                        newEdge.style = { ...newEdge.style, stroke: 'orange', strokeWidth: 2 };
+                        newEdge.markerEnd = { ...baseMarker, color: 'orange' };
+                    } else if (edge.data?.type === 'denial') {
+                        newEdge.style = { ...newEdge.style, stroke: 'red', strokeWidth: 2 };
+                        newEdge.markerEnd = { ...baseMarker, color: 'red' };
+                    } else {
+                        if (edge.label && edge.label.toLowerCase().includes('yes')) {
+                            newEdge.style = { ...newEdge.style, stroke: 'green', strokeWidth: 2 };
+                            newEdge.markerEnd = { ...baseMarker, color: 'green' };
+                        } else {
+                            // Reset color if switching back from colored mode or for neutral edges
+                            newEdge.markerEnd = { ...baseMarker, color: defaultEdgeOptions.markerEnd.color };
+                            // But wait, if edge has its own color? 
+                            // We should probably rely on default if not special.
+                        }
+                    }
+                } else {
+                    // Reset to default
+                    newEdge.style = { ...defaultEdgeOptions.style, ...edge.style };
+                    newEdge.markerEnd = { ...defaultEdgeOptions.markerEnd };
+
+                    // Restore original animations if any
+                    // (But we iterate generic edges, so we rely on edge.animated property from source)
+                    newEdge.animated = edge.animated || false;
+
+                    // If flow animation is OFF, we might still want the specific edges that are ALWAYS animated (like dotted return paths) to be animated?
+                    // In flowData.js, some return paths have animated: true.
+                    // The above logic `newEdge.animated = edge.animated || false` preserves that.
+                }
+
+                return newEdge;
+            });
+            setEdges(filteredEdges);
+        } catch (err) {
+            console.error('Error updating flow visualization:', err);
+        }
+
+    }, [experimentSettings, setNodes, setEdges]);
 
     // Handle zoom changes for semantic zoom
     const onMove = useCallback((event, viewport) => {
@@ -87,7 +174,7 @@ function FlowCanvas() {
                 elementsSelectable={false}
             >
                 <Background color="var(--color-border)" gap={20} size={1} />
-                <Controls />
+                <Controls position="bottom-left" />
                 <MiniMap
                     nodeColor={nodeColor}
                     maskColor="rgba(15, 23, 42, 0.8)"
@@ -96,6 +183,12 @@ function FlowCanvas() {
                     pannable
                 />
             </ReactFlow>
+
+            {/* Experiment Panel */}
+            <ExperimentPanel
+                settings={experimentSettings}
+                onSettingChange={handleSettingChange}
+            />
 
             {/* Zoom Level Indicator */}
             <div className="zoom-indicator">
@@ -126,8 +219,8 @@ function SourcesPanel() {
     const sources = {
         documents: [
             { name: 'ISBE Part 226: Special Education', url: './Docs/isbe_part_226.pdf' },
-            { name: 'ISBE Part 28: Dispute Resolution', url: './Docs/isbe_part_28.pdf' }, // Assumed match
-            { name: 'ISBE Part 401: Non-Public Special Ed', url: './Docs/isbe_part_401.pdf' }, // Use local 504/401 ref
+            { name: 'ISBE Part 28: Dispute Resolution', url: './Docs/isbe_part_28.pdf' },
+            { name: 'ISBE Part 401: Non-Public Special Ed', url: './Docs/isbe_part_401.pdf' },
             { name: 'ISBE-IASSW School Social Work Guide', url: './Docs/ISBE-IASSW-School-Social-Work-Guide.pdf' },
             { name: 'ISBE IEP Instructions', url: './Docs/iep_instructions.pdf' },
             { name: 'FBA Form (Sample)', url: './Docs/FBA-FORM.pdf' },
