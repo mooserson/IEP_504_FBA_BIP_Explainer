@@ -32,7 +32,7 @@ const phaseLabels = [
     {
         id: 'phase-tier1',
         type: 'phaseLabelNode',
-        position: { x: -200, y: -20 },
+        position: { x: -100, y: -20 },
         data: {
             category: NODE_CATEGORIES.PHASE_LABEL,
             label: '1. TIER 1',
@@ -42,7 +42,7 @@ const phaseLabels = [
     {
         id: 'phase-intervention',
         type: 'phaseLabelNode',
-        position: { x: -200, y: 340 },
+        position: { x: -100, y: 340 },
         data: {
             category: NODE_CATEGORIES.PHASE_LABEL,
             label: '2. INTERVENTION',
@@ -52,7 +52,7 @@ const phaseLabels = [
     {
         id: 'phase-referral',
         type: 'phaseLabelNode',
-        position: { x: -200, y: 1350 },
+        position: { x: -100, y: 1350 },
         data: {
             category: NODE_CATEGORIES.PHASE_LABEL,
             label: '3. REFERRAL',
@@ -62,7 +62,7 @@ const phaseLabels = [
     {
         id: 'phase-evaluation',
         type: 'phaseLabelNode',
-        position: { x: -200, y: 2100 },
+        position: { x: -100, y: 2100 },
         data: {
             category: NODE_CATEGORIES.PHASE_LABEL,
             label: '4. EVALUATION',
@@ -72,7 +72,7 @@ const phaseLabels = [
     {
         id: 'phase-eligibility',
         type: 'phaseLabelNode',
-        position: { x: -200, y: 2450 },
+        position: { x: -100, y: 2450 },
         data: {
             category: NODE_CATEGORIES.PHASE_LABEL,
             label: '5. ELIGIBILITY',
@@ -875,7 +875,7 @@ A parent's written request for evaluation triggers the school's obligation to re
     {
         id: 'manifestation-determination',
         type: 'decisionNode',
-        position: { x: 450, y: 4050 },
+        position: { x: 400, y: 3950 },
         data: {
             category: NODE_CATEGORIES.DECISION,
             label: 'Manifestation Determination',
