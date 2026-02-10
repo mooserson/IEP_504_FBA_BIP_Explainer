@@ -1,5 +1,14 @@
 # FBA/BIP Refactoring Plan
 
+## PROGRESS LOG
+- [x] Phase 1: IEP nodes moved left (x: 200)
+- [x] Phase 2: FBA/BIP nodes moved to center (x: 700), phase label renamed to "BEHAVIOR SUPPORT"
+- [x] Phase 3: Edges updated - T1/T2/T3→behavior-concern, 504→behavior-concern, BIP→504-impl, BIP→gen-ed
+- [x] Phase 4: FBA content updated with parent consent for all students
+- [ ] Phase 5: Test and adjust positions (IN PROGRESS)
+
+---
+
 ## Overview
 Decouple FBA and BIP nodes from the IEP-specific pathway. FBAs can be conducted for ANY student (general ed, 504, or IEP), not just those on an IEP. This refactor creates a central "Behavioral Supports" branch that multiple pathways can access.
 
@@ -38,20 +47,22 @@ New positions (spread further apart):
 ### 3. New Edge Connections to FBA
 
 **Normal Flow (always visible):**
-- `tier-1-check` → `fba` (label: "Behavior Concern")
+- `tier-1-check` → `behavior-concern` (Behavior Impacting Learning?) (label: "Behavior Concern")
   - Rationale: Gen-ed students can get FBA without IEP/504
 
 **Comprehensive Flow (scenario: 'complex'):**
-- `tier-2-check` → `fba` (already exists)
-- `tier-3-check` → `fba` (already exists)
+- `tier-2-check` → `behavior-concern` (Behavior Impacting Learning?) (label: "Behavior Concern") (already exists)
+   +remove tier-2-check → fba edge
+- `tier-3-check` → `behavior-concern` (Behavior Impacting Learning?) (label: "Behavior Concern") (already exists)
+   +remove tier-3-check → fba edge
 
 **From 504 Pathway:**
-- `504-plan` → `fba` (label: "Behavior Support Needed")
+- `504-plan` → `behavior-concern` (label: "Behavior Support Needed")
   - Rationale: 504 students may need behavioral assessment
 
 **From IEP Pathway:**
 - Keep existing `iep-development` → `behavior-concern` → `fba` flow
-- OR connect `iep-development` directly to `fba`
+<!-- - OR connect `iep-development` directly to `fba` -->
 
 ### 4. BIP Connections
 - `fba` → `bip` (keep existing)
@@ -68,13 +79,14 @@ Add/emphasize:
 **Parent Consent Required:** An FBA is considered an evaluation and requires written parental consent before conducting, regardless of whether the student has an IEP, 504 plan, or is in general education. (ISBE Part 226.75)
 ```
 
-### Consider Adding New Decision Node
-- "Student Type?" or "Current Services?" decision after FBA/BIP to route back to appropriate pathway
+<!-- MAYBE LATER -->
+<!-- ### Consider Adding New Decision Node
+- "Student Type?" or "Current Services?" decision after FBA/BIP to route back to appropriate pathway -->
 
 ## Phase Labels
 May need to update or add phase label for the behavioral supports section:
 - Current: "6C. FBA / BIP" positioned at x: -300
-- Update position to center, or rename to "BEHAVIORAL SUPPORTS"
+<!-- - Update position to center, or rename to "BEHAVIORAL SUPPORTS" -->
 
 ## Implementation Order
 
@@ -89,8 +101,8 @@ May need to update or add phase label for the behavioral supports section:
    - Verify build
 
 3. **Phase 3: Add new edges**
-   - Add tier-1-check → fba (normal flow)
-   - Add 504-plan → fba (comprehensive)
+   - Add tier-1-check → behavior concern (normal flow)
+   - Add 504-plan → behavior-concern (comprehensive)
    - Add bip → 504-implementation (comprehensive)
    - Consider bip → gen-ed endpoint
    - Verify build
@@ -105,38 +117,6 @@ May need to update or add phase label for the behavioral supports section:
    - Verify edge routing looks clean
    - Adjust positions as needed for visual clarity
 
-## Visual Sketch (ASCII)
-
-```
-                    REFERRAL/EVAL FLOW
-                          |
-                          v
-                    [Eligibility?]
-                    /            \
-                   /              \
-          IEP Eligible        504 Eligible
-                 |                  |
-                 v                  v
-         [IEP Development]    [504 Plan]
-                 |                  |
-                 |    BEHAVIOR      |
-                 |    SUPPORTS      |
-                 |        |         |
-                 +------->|<--------+
-                          v
-                 [Behavior Concern?]
-                          |
-                          v
-                       [FBA]
-                          |
-                          v
-                       [BIP]
-                          |
-            +-------------+-------------+
-            |             |             |
-            v             v             v
-     [IEP Impl]    [504 Impl]    [Gen-Ed]
-```
 
 ## Notes
 - Remember: 350 units minimum horizontal spacing between adjacent nodes

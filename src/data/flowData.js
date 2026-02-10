@@ -102,10 +102,10 @@ const phaseLabels = [
     {
         id: 'phase-fba-bip',
         type: 'phaseLabelNode',
-        position: { x: -300, y: 3700 },
+        position: { x: 450, y: 3200 },
         data: {
             category: NODE_CATEGORIES.PHASE_LABEL,
-            label: '6C. FBA / BIP',
+            label: 'BEHAVIOR SUPPORT',
             description: 'Behavior Assessment & Intervention',
         },
     },
@@ -510,7 +510,7 @@ Consider 504 Plan eligibility — 504 has a broader definition of disability and
     {
         id: 'iep-development',
         type: 'processNode',
-        position: { x: 400, y: 3000 },
+        position: { x: 200, y: 3000 },
         data: {
             category: NODE_CATEGORIES.IEP,
             label: 'IEP Development',
@@ -544,7 +544,7 @@ Consider 504 Plan eligibility — 504 has a broader definition of disability and
     {
         id: 'behavior-concern',
         type: 'decisionNode',
-        position: { x: 200, y: 3300 },
+        position: { x: 700, y: 3300 },
         data: {
             category: NODE_CATEGORIES.DECISION,
             label: 'Behavior Impacting Learning?',
@@ -569,14 +569,14 @@ Consider 504 Plan eligibility — 504 has a broader definition of disability and
     {
         id: 'fba',
         type: 'processNode',
-        position: { x: -100, y: 3600 },
+        position: { x: 700, y: 3600 },
         data: {
             category: NODE_CATEGORIES.FBA_BIP,
             label: 'Functional Behavior Assessment',
             summary: 'Systematic analysis of behavior function',
             detail: `An **FBA** identifies WHY a behavior is occurring.
 
-⚠️ **Parent Consent Required:** An FBA is considered an evaluation and requires written parental consent before conducting (ISBE Part 226.75).
+⚠️ **Parent Consent Required:** An FBA is considered an evaluation and requires written parental consent before conducting, regardless of whether the student has an IEP, 504 plan, or is in general education. (ISBE Part 226.75)
 
 **Purpose:**
 Understand the function of behavior to develop effective interventions
@@ -613,7 +613,7 @@ Understand the function of behavior to develop effective interventions
     {
         id: 'bip',
         type: 'processNode',
-        position: { x: -100, y: 3950 },
+        position: { x: 700, y: 3950 },
         data: {
             category: NODE_CATEGORIES.FBA_BIP,
             label: 'Behavior Intervention Plan',
@@ -657,7 +657,7 @@ Must teach a functionally equivalent replacement behavior that:
     {
         id: 'iep-implementation',
         type: 'endpointNode',
-        position: { x: 400, y: 3850 },
+        position: { x: 200, y: 3850 },
         data: {
             category: NODE_CATEGORIES.IEP,
             label: 'IEP Implementation',
@@ -685,7 +685,7 @@ in the Least Restrictive Environment (LRE)`,
     {
         id: 'annual-review',
         type: 'processNode',
-        position: { x: 400, y: 4200 },
+        position: { x: 200, y: 4200 },
         data: {
             category: NODE_CATEGORIES.IEP,
             label: 'Annual Review',
@@ -875,7 +875,7 @@ A parent's written request for evaluation triggers the school's obligation to re
     {
         id: 'manifestation-determination',
         type: 'decisionNode',
-        position: { x: 650, y: 4050 },
+        position: { x: 450, y: 4050 },
         data: {
             category: NODE_CATEGORIES.DECISION,
             label: 'Manifestation Determination',
@@ -1033,7 +1033,25 @@ export const initialEdges = [
     { id: 'e-behavior-fba', source: 'behavior-concern', target: 'fba', label: 'Yes - Conduct FBA' },
     { id: 'e-behavior-no', source: 'behavior-concern', target: 'iep-implementation', label: 'No - Proceed' },
     { id: 'e-fba-bip', source: 'fba', target: 'bip', label: 'Develop BIP' },
-    { id: 'e-bip-iep', source: 'bip', target: 'iep-implementation', label: 'Include in IEP' },
+    { id: 'e-bip-iep', source: 'bip', target: 'iep-implementation', label: 'IEP Student' },
+    {
+        id: 'e-bip-504',
+        source: 'bip',
+        target: '504-implementation',
+        label: '504 Student',
+        type: 'smoothstep',
+        style: { strokeDasharray: '5 5' },
+        data: { scenario: 'complex' }
+    },
+    {
+        id: 'e-bip-gened',
+        source: 'bip',
+        target: 'gen-ed-success',
+        label: 'Gen-Ed Student',
+        type: 'smoothstep',
+        style: { strokeDasharray: '5 5' },
+        data: { scenario: 'complex' }
+    },
     { id: 'e-iep-review', source: 'iep-implementation', target: 'annual-review', label: 'Monitor Progress' },
     { id: 'e-review-iep', source: 'annual-review', target: 'iep-development', type: 'smoothstep', style: { strokeDasharray: '5 5' }, label: 'Annual Review' },
 
@@ -1061,21 +1079,34 @@ export const initialEdges = [
         data: { scenario: 'complex' }
     },
 
-    // Gen-Ed FBA/BIP via MTSS - behavior concern without IEP (Complex)
+    // Behavior support paths from MTSS tiers
+    // T1 is normal flow, T2/T3 are comprehensive
+    { id: 'e-tier1-behavior', source: 'tier-1-check', target: 'behavior-concern', label: 'Behavior Concern', type: 'smoothstep' },
     {
-        id: 'e-tier2-fba',
+        id: 'e-tier2-behavior',
         source: 'tier-2-check',
-        target: 'fba',
+        target: 'behavior-concern',
         label: 'Behavior Concern',
         type: 'smoothstep',
         style: { strokeDasharray: '5 5' },
         data: { scenario: 'complex' }
     },
     {
-        id: 'e-tier3-fba',
+        id: 'e-tier3-behavior',
         source: 'tier-3-check',
-        target: 'fba',
+        target: 'behavior-concern',
         label: 'Behavior Concern',
+        type: 'smoothstep',
+        style: { strokeDasharray: '5 5' },
+        data: { scenario: 'complex' }
+    },
+
+    // 504 students can also access behavior support (comprehensive)
+    {
+        id: 'e-504-behavior',
+        source: '504-plan',
+        target: 'behavior-concern',
+        label: 'Behavior Support',
         type: 'smoothstep',
         style: { strokeDasharray: '5 5' },
         data: { scenario: 'complex' }
