@@ -73,14 +73,13 @@ function FlowCanvas() {
         try {
             // 1. Filter edges first (needed for connection computation)
             const safeInitialEdges = Array.isArray(initialEdges) ? initialEdges : [];
-            const isOverviewZoom = zoomLevel < 0.6;
             const filteredEdgeList = safeInitialEdges.filter(edge => {
                 // Always show non-complex edges
                 if (edge.data?.scenario !== 'complex') return true;
                 // Show complex edges if toggle is on
                 if (experimentSettings.showComplexFlows) return true;
-                // At overview level, show complex edges connected to hovered node
-                if (isOverviewZoom && hoveredNodeId &&
+                // Show complex edges connected to hovered node at any zoom level
+                if (hoveredNodeId &&
                     (edge.source === hoveredNodeId || edge.target === hoveredNodeId)) {
                     return true;
                 }
