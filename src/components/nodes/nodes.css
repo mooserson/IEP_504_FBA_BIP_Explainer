@@ -58,6 +58,7 @@
     align-items: center;
     gap: var(--spacing-sm);
     margin-bottom: var(--spacing-sm);
+    cursor: pointer;
 }
 
 .node-indicator {
@@ -212,6 +213,7 @@
 
 .decision-diamond {
     padding: var(--spacing-sm);
+    cursor: pointer;
 }
 
 .decision-node .node-title {
@@ -234,6 +236,10 @@
 }
 
 /* Endpoint Node */
+.endpoint-header {
+    cursor: pointer;
+}
+
 .endpoint-node {
     background: linear-gradient(135deg,
             color-mix(in srgb, var(--node-color) 15%, var(--color-bg-secondary)) 0%,

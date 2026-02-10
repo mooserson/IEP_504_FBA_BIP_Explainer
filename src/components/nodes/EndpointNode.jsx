@@ -78,8 +78,16 @@ function EndpointNode({ data, selected }) {
         >
             <Handle type="target" position={Position.Top} />
 
-            <div className="endpoint-badge">✓</div>
-            <h3 className="node-title">{data.label}</h3>
+            <div
+                className="endpoint-header"
+                onClick={(e) => {
+                    e.stopPropagation();
+                    data.onNodeClick?.(data);
+                }}
+            >
+                <div className="endpoint-badge">✓</div>
+                <h3 className="node-title">{data.label}</h3>
+            </div>
             <p className="node-summary">{data.summary}</p>
 
             {/* Connection badges - shown when not expanded */}

@@ -20,6 +20,7 @@ import DecisionNode from './components/nodes/DecisionNode';
 import EndpointNode from './components/nodes/EndpointNode';
 import PhaseLabelNode from './components/nodes/PhaseLabelNode';
 import ThemeToggle from './components/ui/ThemeToggle';
+import NodeDetailModal from './components/ui/NodeDetailModal';
 import { initialNodes, initialEdges, categoryColors, NODE_CATEGORIES } from './data/flowData';
 import './App.css';
 
@@ -58,6 +59,7 @@ function FlowCanvas() {
     const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
     const [zoomLevel, setZoomLevel] = useState(1);
     const [hoveredNodeId, setHoveredNodeId] = useState(null);
+    const [modalNode, setModalNode] = useState(null);
     const { fitView } = useReactFlow();
 
     // Handle Experiment Settings
@@ -112,12 +114,13 @@ function FlowCanvas() {
                 nodeConnections[edge.target].incoming.push(nodeLabels[edge.source] || edge.source);
             });
 
-            // 4. Update nodes with connection data
+            // 4. Update nodes with connection data and modal click handler
             const nodesWithConnections = safeInitialNodes.map(node => ({
                 ...node,
                 data: {
                     ...node.data,
-                    connections: nodeConnections[node.id] || { incoming: [], outgoing: [] }
+                    connections: nodeConnections[node.id] || { incoming: [], outgoing: [] },
+                    onNodeClick: (nodeData) => setModalNode(nodeData),
                 }
             }));
             setNodes(nodesWithConnections);
@@ -302,6 +305,9 @@ function FlowCanvas() {
 
             {/* Legend */}
             <Legend />
+
+            {/* Node Detail Modal */}
+            <NodeDetailModal node={modalNode} onClose={() => setModalNode(null)} />
         </div>
     );
 }

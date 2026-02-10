@@ -14,7 +14,8 @@
       "Bash(npm run deploy:*)",
       "Bash(gh repo view:*)",
       "Bash(gh api:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(find:*)"
     ]
   }
 }

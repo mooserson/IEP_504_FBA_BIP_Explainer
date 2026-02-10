@@ -78,7 +78,13 @@ function DecisionNode({ data, selected }) {
         >
             <Handle type="target" position={Position.Top} />
 
-            <div className="decision-diamond">
+            <div
+                className="decision-diamond"
+                onClick={(e) => {
+                    e.stopPropagation();
+                    data.onNodeClick?.(data);
+                }}
+            >
                 <h3 className="node-title">{data.label}</h3>
                 {data.meetingRequired && (
                     <span className="meeting-badge">Meeting Required</span>

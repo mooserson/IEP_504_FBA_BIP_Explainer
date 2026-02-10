@@ -72,7 +72,13 @@ function ProcessNode({ data, selected }) {
         >
             <Handle type="target" position={Position.Top} />
 
-            <div className="node-header">
+            <div
+                className="node-header"
+                onClick={(e) => {
+                    e.stopPropagation();
+                    data.onNodeClick?.(data);
+                }}
+            >
                 <div className="node-indicator" />
                 <h3 className="node-title">{data.label}</h3>
             </div>
