@@ -73,9 +73,19 @@ function FlowCanvas() {
         try {
             // 1. Filter edges first (needed for connection computation)
             const safeInitialEdges = Array.isArray(initialEdges) ? initialEdges : [];
-            const filteredEdgeList = safeInitialEdges.filter(edge =>
-                experimentSettings.showComplexFlows || edge.data?.scenario !== 'complex'
-            );
+            const isOverviewZoom = zoomLevel < 0.6;
+            const filteredEdgeList = safeInitialEdges.filter(edge => {
+                // Always show non-complex edges
+                if (edge.data?.scenario !== 'complex') return true;
+                // Show complex edges if toggle is on
+                if (experimentSettings.showComplexFlows) return true;
+                // At overview level, show complex edges connected to hovered node
+                if (isOverviewZoom && hoveredNodeId &&
+                    (edge.source === hoveredNodeId || edge.target === hoveredNodeId)) {
+                    return true;
+                }
+                return false;
+            });
 
             // 2. Build node label lookup
             const safeInitialNodes = Array.isArray(initialNodes) ? initialNodes : [];
@@ -175,10 +185,11 @@ function FlowCanvas() {
             console.error('Error updating flow visualization:', err);
         }
 
-    }, [experimentSettings, hoveredNodeId, setNodes, setEdges]);
+    }, [experimentSettings, hoveredNodeId, zoomLevel, setNodes, setEdges]);
 
-    // Handle node hover for edge highlighting
+    // Handle node hover for edge highlighting (ignore phase labels)
     const onNodeMouseEnter = useCallback((event, node) => {
+        if (node.type === 'phaseLabelNode') return;
         setHoveredNodeId(node.id);
     }, []);
 
@@ -193,9 +204,9 @@ function FlowCanvas() {
 
     // Determine zoom category for UI display
     const zoomCategory = useMemo(() => {
-        if (zoomLevel >= 1.2) return 'detailed';
-        if (zoomLevel < 0.8) return 'overview';
-        return 'standard';
+        if (zoomLevel > 0.8) return 'detailed';
+        if (zoomLevel < 0.6) return 'overview';
+        return 'summary';
     }, [zoomLevel]);
 
     // Track previous zoom level for detecting zoom direction
@@ -203,7 +214,7 @@ function FlowCanvas() {
     const hasUserInteracted = useRef(false);
 
     // Auto-toggle comprehensive flow based on zoom level
-    // Enable when zooming INTO Standard+ (80%+), disable when zooming OUT to Overview (<80%)
+    // Enable when zooming INTO Detailed (>80%), disable when zooming OUT of Detailed (<=80%)
     useEffect(() => {
         const prevZoom = prevZoomRef.current;
         const currentZoom = zoomLevel;
@@ -218,12 +229,12 @@ function FlowCanvas() {
             }
         }
 
-        // Zooming IN to Standard+ level
-        if (currentZoom >= 0.8 && prevZoom < 0.8) {
+        // Zooming IN to Detailed level
+        if (currentZoom > 0.8 && prevZoom <= 0.8) {
             setExperimentSettings(prev => ({ ...prev, showComplexFlows: true }));
         }
-        // Zooming OUT to Overview level
-        else if (currentZoom < 0.8 && prevZoom >= 0.8) {
+        // Zooming OUT of Detailed level
+        else if (currentZoom <= 0.8 && prevZoom > 0.8) {
             setExperimentSettings(prev => ({ ...prev, showComplexFlows: false }));
         }
 
@@ -277,8 +288,8 @@ function FlowCanvas() {
             <div className="zoom-indicator">
                 Zoom: <strong>{Math.round(zoomLevel * 100)}%</strong>
                 <span style={{ marginLeft: '8px', opacity: 0.7 }}>
-                    ({zoomCategory === 'detailed' ? '📋 Full Detail' :
-                        zoomCategory === 'standard' ? '📝 Summary' : '🗺️ Overview'})
+                    ({zoomCategory === 'detailed' ? '📋 Detail (>80%)' :
+                        zoomCategory === 'summary' ? '📝 Summary (60-80%)' : '🗺️ Overview (<60%)'})
                 </span>
             </div>
 

@@ -1,11 +1,16 @@
 /**
  * Flowchart Data - Special Education Intervention Process
- * 
+ *
  * This defines the nodes and edges for the interactive flowchart.
  * Each node has content for 3 zoom levels:
  * - minimal: Just the title (for zoomed out view)
  * - summary: Title + key info
  * - detailed: Full description with timelines, personnel, legal refs
+ *
+ * LAYOUT GUIDELINES:
+ * - Neighboring tiles in the same row should be at least 350 units apart (x-axis)
+ * - This ensures adequate spacing when tiles expand on hover
+ * - Vertical spacing (y-axis) should be ~260+ units between rows
  */
 
 // Node type categories for styling
@@ -25,23 +30,23 @@ export const NODE_CATEGORIES = {
 // Phase label nodes (visible when zoomed out) - positioned LEFT of tiles
 const phaseLabels = [
     {
-        id: 'phase-recognition',
+        id: 'phase-tier1',
         type: 'phaseLabelNode',
         position: { x: -200, y: -20 },
         data: {
             category: NODE_CATEGORIES.PHASE_LABEL,
-            label: '1. RECOGNITION',
-            description: 'Student concern identified',
+            label: '1. TIER 1',
+            description: 'Universal supports & screening',
         },
     },
     {
-        id: 'phase-mtss',
+        id: 'phase-intervention',
         type: 'phaseLabelNode',
         position: { x: -200, y: 340 },
         data: {
             category: NODE_CATEGORIES.PHASE_LABEL,
-            label: '2. MTSS / RTI',
-            description: 'Multi-Tiered System of Supports',
+            label: '2. INTERVENTION',
+            description: 'Tiered supports (MTSS/RTI)',
         },
     },
     {
@@ -111,42 +116,16 @@ export const initialNodes = [
     // Phase labels
     ...phaseLabels,
 
-    // ===== RECOGNITION PHASE =====
-    {
-        id: 'concern-identified',
-        type: 'processNode',
-        position: { x: 400, y: 0 },
-        data: {
-            category: NODE_CATEGORIES.RECOGNITION,
-            label: 'Concern Identified',
-            summary: 'Teacher, parent, or data identifies a student need',
-            detail: `A student is flagged when they display academic, behavioral, social, or emotional 
-concerns that differ significantly from their peers.
-
-**Who Can Identify:**
-• Teachers (classroom observations)
-• Parents/Guardians (home concerns)
-• Screening data (universal assessments)
-• Other school personnel
-
-**Common Indicators:**
-• Academic struggles despite classroom support
-• Behavioral patterns affecting learning
-• Social/emotional difficulties
-• Attendance or engagement issues`,
-        },
-    },
-
-    // ===== MTSS TIER 1 =====
+    // ===== MTSS TIER 1 (Universal - All Students Start Here) =====
     {
         id: 'tier-1',
         type: 'processNode',
-        position: { x: 400, y: 260 },
+        position: { x: 400, y: 0 },
         data: {
             category: NODE_CATEGORIES.MTSS,
             label: 'Tier 1: Universal Supports',
             summary: 'High-quality core instruction for all students',
-            detail: `**Tier 1** is the foundation of MTSS - research-based instruction and supports 
+            detail: `**Tier 1** is the foundation of MTSS - research-based instruction and supports
 provided to ALL students in general education.
 
 **Key Components:**
@@ -159,8 +138,38 @@ provided to ALL students in general education.
 **Setting:** General education classroom
 **Intensity:** Standard instruction
 
+**Universal Screening:**
+All students are screened 3x/year to identify those who may need additional support.
+
 **Expected Outcome:**
 ~80-85% of students will succeed with Tier 1 alone.`,
+        },
+    },
+
+    // ===== CONCERN IDENTIFICATION =====
+    {
+        id: 'concern-identified',
+        type: 'processNode',
+        position: { x: 400, y: 260 },
+        data: {
+            category: NODE_CATEGORIES.RECOGNITION,
+            label: 'Concern Identified',
+            summary: 'Screening or observation flags a student need',
+            detail: `A student is flagged when universal screening or observation indicates they may
+need more than Tier 1 supports.
+
+**How Concerns Are Identified:**
+• Universal screening data (3x/year benchmarks)
+• Teacher observations
+• Parents/Guardians (home concerns)
+• Progress monitoring data
+
+**Common Indicators:**
+• Not meeting grade-level benchmarks
+• Academic struggles despite differentiated instruction
+• Behavioral patterns affecting learning
+• Social/emotional difficulties
+• Attendance or engagement issues`,
         },
     },
 
@@ -192,7 +201,7 @@ with universal supports.
     {
         id: 'tier-2',
         type: 'processNode',
-        position: { x: 700, y: 540 },
+        position: { x: 750, y: 540 },
         data: {
             category: NODE_CATEGORIES.MTSS,
             label: 'Tier 2: Targeted Interventions',
@@ -220,7 +229,7 @@ than core instruction.
     {
         id: 'tier-2-check',
         type: 'decisionNode',
-        position: { x: 700, y: 820 },
+        position: { x: 750, y: 820 },
         data: {
             category: NODE_CATEGORIES.DECISION,
             label: 'T2: Adequate Progress?',
@@ -244,7 +253,7 @@ than core instruction.
     {
         id: 'tier-3',
         type: 'processNode',
-        position: { x: 1050, y: 820 },
+        position: { x: 1100, y: 820 },
         data: {
             category: NODE_CATEGORIES.MTSS,
             label: 'Tier 3: Intensive Interventions',
@@ -274,7 +283,7 @@ participation in the MTSS/RTI process.`,
     {
         id: 'tier-3-check',
         type: 'decisionNode',
-        position: { x: 1050, y: 1100 },
+        position: { x: 1100, y: 1100 },
         data: {
             category: NODE_CATEGORIES.DECISION,
             label: 'T3: Adequate Progress?',
@@ -647,7 +656,7 @@ Must teach a functionally equivalent replacement behavior that:
 
     {
         id: 'iep-implementation',
-        type: 'processNode',
+        type: 'endpointNode',
         position: { x: 400, y: 3850 },
         data: {
             category: NODE_CATEGORIES.IEP,
@@ -900,11 +909,14 @@ Required when student is removed for 10+ school days (cumulative or consecutive)
 // Solid lines = forward progression
 // Dashed lines = return paths (going back to earlier steps)
 export const initialEdges = [
-    // Recognition to MTSS - initial flow
-    { id: 'e-concern-tier1', source: 'concern-identified', target: 'tier-1', animated: true, label: 'Enter MTSS' },
+    // Tier 1 screening identifies concerns
+    { id: 'e-tier1-concern', source: 'tier-1', target: 'concern-identified', animated: true, label: 'Concern Flagged' },
+
+    // Parent request can also trigger concern identification
+    { id: 'e-parent-concern', source: 'parent-request', target: 'concern-identified', label: 'Parent Concern', type: 'smoothstep' },
 
     // Tier 1 flow
-    { id: 'e-tier1-check', source: 'tier-1', target: 'tier-1-check' },
+    { id: 'e-concern-check', source: 'concern-identified', target: 'tier-1-check' },
     { id: 'e-tier1-success', source: 'tier-1-check', target: 'gen-ed-success', label: 'Yes - Success', type: 'smoothstep' },
     { id: 'e-tier1-tier2', source: 'tier-1-check', target: 'tier-2', label: 'No - More Support' },
 
@@ -926,6 +938,27 @@ export const initialEdges = [
 
     // Tier 3 flow
     { id: 'e-tier3-check', source: 'tier-3', target: 'tier-3-check' },
+
+    // Referral paths from tier checks (T1/T2 are Complex, T3 is standard)
+    // Order matters for badge display: T1, T2, T3
+    {
+        id: 'e-tier1-referral',
+        source: 'tier-1-check',
+        target: 'referral',
+        label: 'Request Evaluation',
+        type: 'smoothstep',
+        style: { strokeDasharray: '5 5' },
+        data: { scenario: 'complex' }
+    },
+    {
+        id: 'e-tier2-referral',
+        source: 'tier-2-check',
+        target: 'referral',
+        label: 'Request Evaluation',
+        type: 'smoothstep',
+        style: { strokeDasharray: '5 5' },
+        data: { scenario: 'complex' }
+    },
     { id: 'e-tier3-referral', source: 'tier-3-check', target: 'referral', label: 'Evaluate for Services' },
 
     // Tier 3 Return Path (Complex)
@@ -1007,6 +1040,7 @@ export const initialEdges = [
     // 504 flow
     { id: 'e-504-elig-plan', source: '504-eligibility', target: '504-plan', label: 'Develop Plan' },
     { id: 'e-504-plan-impl', source: '504-plan', target: '504-implementation', label: 'Implement' },
+    { id: 'e-504-review', source: '504-implementation', target: '504-plan', type: 'smoothstep', style: { strokeDasharray: '5 5' }, label: 'Annual Review' },
 
     // Manifestation Determination pathway (Complex)
     {

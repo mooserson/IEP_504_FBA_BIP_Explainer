@@ -9,7 +9,33 @@ import './nodes.css';
 function ProcessNode({ data, selected }) {
     const [isHovered, setIsHovered] = useState(false);
     const detailRef = useRef(null);
+    const hoverTimeoutRef = useRef(null);
     const borderColor = categoryColors[data.category] || 'var(--color-primary)';
+
+    // Debounced hover handlers to prevent flicker
+    const handleMouseEnter = () => {
+        if (hoverTimeoutRef.current) {
+            clearTimeout(hoverTimeoutRef.current);
+            hoverTimeoutRef.current = null;
+        }
+        setIsHovered(true);
+    };
+
+    const handleMouseLeave = () => {
+        // Small delay before removing hover to prevent flicker during content transitions
+        hoverTimeoutRef.current = setTimeout(() => {
+            setIsHovered(false);
+        }, 100);
+    };
+
+    // Cleanup timeout on unmount
+    useEffect(() => {
+        return () => {
+            if (hoverTimeoutRef.current) {
+                clearTimeout(hoverTimeoutRef.current);
+            }
+        };
+    }, []);
 
     // Use capture phase to intercept wheel events before React Flow
     useEffect(() => {
@@ -41,8 +67,8 @@ function ProcessNode({ data, selected }) {
                 '--node-color': borderColor,
                 zIndex: isHovered ? 1000 : 'auto',
             }}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
         >
             <Handle type="target" position={Position.Top} />
 

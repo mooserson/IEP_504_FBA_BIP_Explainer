@@ -12,6 +12,11 @@
     pointer-events: auto !important;
 }
 
+/* Center nodes on their x position (React Flow defaults to left-aligned) */
+.react-flow__node:not(.react-flow__node-phaseLabelNode) {
+    transform: translateX(-50%);
+}
+
 .flow-node {
     background: var(--color-bg-secondary);
     border: 2px solid var(--node-color, var(--color-border));
@@ -25,9 +30,19 @@
     cursor: default;
 }
 
+/* Invisible hover buffer zone below node to prevent flicker during content transitions */
+.flow-node::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -20px;
+    height: 20px;
+    background: transparent;
+}
+
 .flow-node.hovered {
     box-shadow: 0 0 20px color-mix(in srgb, var(--node-color) 40%, transparent);
-    transform: translateY(-2px);
     z-index: 9999 !important;
     position: relative;
 }
@@ -335,39 +350,52 @@
    ZOOM-DEPENDENT LAYOUT STYLES
    ========================================= */
 
-/* OVERVIEW MODE (< 80% zoom) */
-/* Hide summaries, badges, meeting badges, make titles larger */
+/* OVERVIEW MODE (< 60% zoom) */
+/* Hide everything except title - compact view */
 .zoom-overview .flow-node .node-summary,
 .zoom-overview .flow-node .node-connections,
+.zoom-overview .flow-node .node-detail,
 .zoom-overview .flow-node .meeting-badge {
-    display: none;
+    display: none !important;
 }
 
 .zoom-overview .flow-node .node-title {
     font-size: 1.1rem;
-    /* Slightly larger */
 }
 
 .zoom-overview .flow-node {
     padding: var(--spacing-sm);
-    /* Compact padding */
-    min-width: 160px;
-    /* Smaller width */
+    /* Fixed width at overview for consistent centering */
+    width: 180px;
+    min-width: 180px;
+    max-width: 180px;
 }
 
 /* Disable tile expansion on hover at overview zoom */
 .zoom-overview .flow-node.hovered {
-    transform: none;
+    transform: none !important;
+    box-shadow: var(--shadow-lg) !important;
 }
 
 .zoom-overview .flow-node.hovered .node-detail {
-    max-height: 0;
-    opacity: 0;
+    max-height: 0 !important;
+    opacity: 0 !important;
+    display: none !important;
 }
 
-/* STANDARD MODE (80% - 120% zoom) */
-/* Standard behavior (hover to expand) - inherited from base styles */
+/* SUMMARY MODE (60% - 80% zoom) */
+/* Show summary text and meeting badges, hide IN/OUT connection badges */
+.zoom-summary .flow-node .node-connections,
+.zoom-summary .flow-node .node-detail {
+    display: none !important;
+}
 
-/* DETAILED MODE (> 120% zoom) */
-/* NOTE: Auto-expand ALL tiles was removed - it caused overlap issues.
-   Hover-to-expand now works at all zoom levels via dynamic z-index. */
+/* Disable tile expansion on hover at summary zoom */
+.zoom-summary .flow-node.hovered .node-detail {
+    max-height: 0 !important;
+    opacity: 0 !important;
+    display: none !important;
+}
+
+/* DETAILED MODE (> 80% zoom) */
+/* Show everything including IN/OUT badges, hover to expand details */

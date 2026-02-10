@@ -19,7 +19,32 @@ function formatMarkdown(text) {
 function DecisionNode({ data, selected }) {
     const [isHovered, setIsHovered] = useState(false);
     const detailRef = useRef(null);
+    const hoverTimeoutRef = useRef(null);
     const borderColor = categoryColors[data.category] || 'var(--color-decision)';
+
+    // Debounced hover handlers to prevent flicker
+    const handleMouseEnter = () => {
+        if (hoverTimeoutRef.current) {
+            clearTimeout(hoverTimeoutRef.current);
+            hoverTimeoutRef.current = null;
+        }
+        setIsHovered(true);
+    };
+
+    const handleMouseLeave = () => {
+        hoverTimeoutRef.current = setTimeout(() => {
+            setIsHovered(false);
+        }, 100);
+    };
+
+    // Cleanup timeout on unmount
+    useEffect(() => {
+        return () => {
+            if (hoverTimeoutRef.current) {
+                clearTimeout(hoverTimeoutRef.current);
+            }
+        };
+    }, []);
 
     // Use capture phase to intercept wheel events before React Flow
     useEffect(() => {
@@ -48,8 +73,8 @@ function DecisionNode({ data, selected }) {
                 '--node-color': borderColor,
                 zIndex: isHovered ? 1000 : 'auto',
             }}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
         >
             <Handle type="target" position={Position.Top} />
 
