@@ -102,7 +102,7 @@ const phaseLabels = [
     {
         id: 'phase-fba-bip',
         type: 'phaseLabelNode',
-        position: { x: 450, y: 3200 },
+        position: { x: 600, y: 3100 },
         data: {
             category: NODE_CATEGORIES.PHASE_LABEL,
             label: 'BEHAVIOR SUPPORT',
@@ -657,7 +657,7 @@ Must teach a functionally equivalent replacement behavior that:
     {
         id: 'iep-implementation',
         type: 'endpointNode',
-        position: { x: 200, y: 3850 },
+        position: { x: 200, y: 3350 },
         data: {
             category: NODE_CATEGORIES.IEP,
             label: 'IEP Implementation',
@@ -685,7 +685,7 @@ in the Least Restrictive Environment (LRE)`,
     {
         id: 'annual-review',
         type: 'processNode',
-        position: { x: 200, y: 4200 },
+        position: { x: 200, y: 3700 },
         data: {
             category: NODE_CATEGORIES.IEP,
             label: 'Annual Review',
