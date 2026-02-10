@@ -212,6 +212,12 @@
     text-align: left;
 }
 
+.decision-node .meeting-badge {
+    display: block;
+    width: fit-content;
+    margin: 0 0 4px 0;
+}
+
 /* Endpoint Node */
 .endpoint-node {
     background: linear-gradient(135deg,
