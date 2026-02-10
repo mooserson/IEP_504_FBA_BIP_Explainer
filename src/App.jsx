@@ -419,7 +419,7 @@ function App() {
         <div className="app-container">
             <header className="app-header">
                 <div>
-                    <h1 className="app-title">Special Education Intervention Flowchart</h1>
+                    <h1 className="app-title">Special Education Intervention Flowchart (Illinois)</h1>
                     <p className="app-subtitle">504 Plans • IEPs • FBAs • BIPs — A comprehensive guide for school social workers</p>
                 </div>
                 <ThemeToggle />
