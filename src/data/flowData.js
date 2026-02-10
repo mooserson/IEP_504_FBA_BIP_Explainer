@@ -544,7 +544,7 @@ Consider 504 Plan eligibility — 504 has a broader definition of disability and
     {
         id: 'behavior-concern',
         type: 'decisionNode',
-        position: { x: 700, y: 3300 },
+        position: { x: 520, y: 2900 },
         data: {
             category: NODE_CATEGORIES.DECISION,
             label: 'Behavior Impacting Learning?',
