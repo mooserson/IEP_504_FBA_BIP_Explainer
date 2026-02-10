@@ -37,7 +37,7 @@ const phaseLabels = [
     {
         id: 'phase-mtss',
         type: 'phaseLabelNode',
-        position: { x: -200, y: 280 },
+        position: { x: -200, y: 340 },
         data: {
             category: NODE_CATEGORIES.PHASE_LABEL,
             label: '2. MTSS / RTI',
@@ -47,7 +47,7 @@ const phaseLabels = [
     {
         id: 'phase-referral',
         type: 'phaseLabelNode',
-        position: { x: -200, y: 1050 },
+        position: { x: -200, y: 1350 },
         data: {
             category: NODE_CATEGORIES.PHASE_LABEL,
             label: '3. REFERRAL',
@@ -57,7 +57,7 @@ const phaseLabels = [
     {
         id: 'phase-evaluation',
         type: 'phaseLabelNode',
-        position: { x: -200, y: 1550 },
+        position: { x: -200, y: 2100 },
         data: {
             category: NODE_CATEGORIES.PHASE_LABEL,
             label: '4. EVALUATION',
@@ -67,7 +67,7 @@ const phaseLabels = [
     {
         id: 'phase-eligibility',
         type: 'phaseLabelNode',
-        position: { x: -200, y: 1950 },
+        position: { x: -200, y: 2450 },
         data: {
             category: NODE_CATEGORIES.PHASE_LABEL,
             label: '5. ELIGIBILITY',
@@ -77,7 +77,7 @@ const phaseLabels = [
     {
         id: 'phase-iep',
         type: 'phaseLabelNode',
-        position: { x: -300, y: 2500 },
+        position: { x: -300, y: 3100 },
         data: {
             category: NODE_CATEGORIES.PHASE_LABEL,
             label: '6A. IEP PATHWAY',
@@ -87,7 +87,7 @@ const phaseLabels = [
     {
         id: 'phase-504',
         type: 'phaseLabelNode',
-        position: { x: 1450, y: 2500 },
+        position: { x: 1450, y: 3100 },
         data: {
             category: NODE_CATEGORIES.PHASE_LABEL,
             label: '6B. 504 PLAN',
@@ -97,7 +97,7 @@ const phaseLabels = [
     {
         id: 'phase-fba-bip',
         type: 'phaseLabelNode',
-        position: { x: -300, y: 2950 },
+        position: { x: -300, y: 3700 },
         data: {
             category: NODE_CATEGORIES.PHASE_LABEL,
             label: '6C. FBA / BIP',
@@ -141,7 +141,7 @@ concerns that differ significantly from their peers.
     {
         id: 'tier-1',
         type: 'processNode',
-        position: { x: 400, y: 200 },
+        position: { x: 400, y: 260 },
         data: {
             category: NODE_CATEGORIES.MTSS,
             label: 'Tier 1: Universal Supports',
@@ -167,7 +167,7 @@ provided to ALL students in general education.
     {
         id: 'tier-1-check',
         type: 'decisionNode',
-        position: { x: 400, y: 420 },
+        position: { x: 400, y: 540 },
         data: {
             category: NODE_CATEGORIES.DECISION,
             label: 'T1: Adequate Progress?',
@@ -192,7 +192,7 @@ with universal supports.
     {
         id: 'tier-2',
         type: 'processNode',
-        position: { x: 700, y: 420 },
+        position: { x: 700, y: 540 },
         data: {
             category: NODE_CATEGORIES.MTSS,
             label: 'Tier 2: Targeted Interventions',
@@ -220,7 +220,7 @@ than core instruction.
     {
         id: 'tier-2-check',
         type: 'decisionNode',
-        position: { x: 700, y: 640 },
+        position: { x: 700, y: 820 },
         data: {
             category: NODE_CATEGORIES.DECISION,
             label: 'T2: Adequate Progress?',
@@ -244,7 +244,7 @@ than core instruction.
     {
         id: 'tier-3',
         type: 'processNode',
-        position: { x: 1050, y: 640 },
+        position: { x: 1050, y: 820 },
         data: {
             category: NODE_CATEGORIES.MTSS,
             label: 'Tier 3: Intensive Interventions',
@@ -274,7 +274,7 @@ participation in the MTSS/RTI process.`,
     {
         id: 'tier-3-check',
         type: 'decisionNode',
-        position: { x: 1050, y: 860 },
+        position: { x: 1050, y: 1100 },
         data: {
             category: NODE_CATEGORIES.DECISION,
             label: 'T3: Adequate Progress?',
@@ -298,7 +298,7 @@ participation in the MTSS/RTI process.`,
     {
         id: 'referral',
         type: 'processNode',
-        position: { x: 800, y: 1000 },
+        position: { x: 800, y: 1280 },
         data: {
             category: NODE_CATEGORIES.REFERRAL,
             label: 'Formal Referral',
@@ -332,7 +332,7 @@ to evaluate. They must either:
     {
         id: 'consent',
         type: 'processNode',
-        position: { x: 800, y: 1220 },
+        position: { x: 800, y: 1560 },
         data: {
             category: NODE_CATEGORIES.REFERRAL,
             label: 'Parental Consent',
@@ -360,7 +360,7 @@ the signed written consent.
     {
         id: 'domain-meeting',
         type: 'processNode',
-        position: { x: 800, y: 1360 },
+        position: { x: 800, y: 1760 },
         data: {
             category: NODE_CATEGORIES.EVALUATION,
             label: 'Domain Meeting',
@@ -400,7 +400,7 @@ Written evaluation plan specifying:
     {
         id: 'evaluation',
         type: 'processNode',
-        position: { x: 800, y: 1580 },
+        position: { x: 800, y: 2040 },
         data: {
             category: NODE_CATEGORIES.EVALUATION,
             label: 'Comprehensive Evaluation',
@@ -447,7 +447,7 @@ The team must determine that poor performance is NOT primarily due to:
     {
         id: 'eligibility-meeting',
         type: 'processNode',
-        position: { x: 800, y: 1860 },
+        position: { x: 800, y: 2380 },
         data: {
             category: NODE_CATEGORIES.EVALUATION,
             label: 'Eligibility Determination',
@@ -483,7 +483,7 @@ Consider 504 Plan eligibility — 504 has a broader definition of disability and
     {
         id: 'eligibility-decision',
         type: 'decisionNode',
-        position: { x: 800, y: 2130 },
+        position: { x: 800, y: 2700 },
         data: {
             category: NODE_CATEGORIES.DECISION,
             label: 'Eligible?',
@@ -501,7 +501,7 @@ Consider 504 Plan eligibility — 504 has a broader definition of disability and
     {
         id: 'iep-development',
         type: 'processNode',
-        position: { x: 400, y: 2380 },
+        position: { x: 400, y: 3000 },
         data: {
             category: NODE_CATEGORIES.IEP,
             label: 'IEP Development',
@@ -535,7 +535,7 @@ Consider 504 Plan eligibility — 504 has a broader definition of disability and
     {
         id: 'behavior-concern',
         type: 'decisionNode',
-        position: { x: 200, y: 2630 },
+        position: { x: 200, y: 3300 },
         data: {
             category: NODE_CATEGORIES.DECISION,
             label: 'Behavior Impacting Learning?',
@@ -560,7 +560,7 @@ Consider 504 Plan eligibility — 504 has a broader definition of disability and
     {
         id: 'fba',
         type: 'processNode',
-        position: { x: -100, y: 2880 },
+        position: { x: -100, y: 3600 },
         data: {
             category: NODE_CATEGORIES.FBA_BIP,
             label: 'Functional Behavior Assessment',
@@ -604,7 +604,7 @@ Understand the function of behavior to develop effective interventions
     {
         id: 'bip',
         type: 'processNode',
-        position: { x: -100, y: 3180 },
+        position: { x: -100, y: 3950 },
         data: {
             category: NODE_CATEGORIES.FBA_BIP,
             label: 'Behavior Intervention Plan',
@@ -648,7 +648,7 @@ Must teach a functionally equivalent replacement behavior that:
     {
         id: 'iep-implementation',
         type: 'processNode',
-        position: { x: 400, y: 3080 },
+        position: { x: 400, y: 3850 },
         data: {
             category: NODE_CATEGORIES.IEP,
             label: 'IEP Implementation',
@@ -676,7 +676,7 @@ in the Least Restrictive Environment (LRE)`,
     {
         id: 'annual-review',
         type: 'processNode',
-        position: { x: 400, y: 3360 },
+        position: { x: 400, y: 4200 },
         data: {
             category: NODE_CATEGORIES.IEP,
             label: 'Annual Review',
@@ -706,7 +706,7 @@ Every 3 years (or sooner if requested)
     {
         id: '504-eligibility',
         type: 'processNode',
-        position: { x: 1200, y: 2380 },
+        position: { x: 1200, y: 3000 },
         data: {
             category: NODE_CATEGORIES.PLAN_504,
             label: '504 Eligibility',
@@ -737,7 +737,7 @@ one or more major life activities.
     {
         id: '504-plan',
         type: 'processNode',
-        position: { x: 1200, y: 2660 },
+        position: { x: 1200, y: 3350 },
         data: {
             category: NODE_CATEGORIES.PLAN_504,
             label: '504 Plan Development',
@@ -772,7 +772,7 @@ Annually (or as needed)`,
     {
         id: '504-implementation',
         type: 'endpointNode',
-        position: { x: 1200, y: 2940 },
+        position: { x: 1200, y: 3700 },
         data: {
             category: NODE_CATEGORIES.PLAN_504,
             label: '504 Plan Implementation',
@@ -795,7 +795,7 @@ Annually (or as needed)`,
     {
         id: 'gen-ed-success',
         type: 'endpointNode',
-        position: { x: 50, y: 420 },
+        position: { x: 50, y: 540 },
         data: {
             category: NODE_CATEGORIES.ENDPOINT,
             label: 'Continue General Ed',
@@ -809,7 +809,7 @@ Progress monitoring continues to ensure ongoing success.`,
     {
         id: 'referral-denied',
         type: 'endpointNode',
-        position: { x: 1200, y: 1100 },
+        position: { x: 1200, y: 1380 },
         data: {
             category: NODE_CATEGORIES.ENDPOINT,
             label: 'Evaluation Denied',
@@ -866,7 +866,7 @@ A parent's written request for evaluation triggers the school's obligation to re
     {
         id: 'manifestation-determination',
         type: 'decisionNode',
-        position: { x: 650, y: 3230 },
+        position: { x: 650, y: 4050 },
         data: {
             category: NODE_CATEGORIES.DECISION,
             label: 'Manifestation Determination',
