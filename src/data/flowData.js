@@ -685,7 +685,7 @@ in the Least Restrictive Environment (LRE)`,
     {
         id: 'annual-review',
         type: 'processNode',
-        position: { x: 200, y: 3700 },
+        position: { x: -50, y: 3500 },
         data: {
             category: NODE_CATEGORIES.IEP,
             label: 'Annual Review',
@@ -875,7 +875,7 @@ A parent's written request for evaluation triggers the school's obligation to re
     {
         id: 'manifestation-determination',
         type: 'decisionNode',
-        position: { x: 400, y: 3950 },
+        position: { x: 300, y: 3950 },
         data: {
             category: NODE_CATEGORIES.DECISION,
             label: 'Manifestation Determination',
