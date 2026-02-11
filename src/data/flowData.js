@@ -82,7 +82,7 @@ const phaseLabels = [
     {
         id: 'phase-iep',
         type: 'phaseLabelNode',
-        position: { x: -300, y: 3100 },
+        position: { x: -300, y: 3200 },
         data: {
             category: NODE_CATEGORIES.PHASE_LABEL,
             label: '6A. IEP PATHWAY',
@@ -92,7 +92,7 @@ const phaseLabels = [
     {
         id: 'phase-504',
         type: 'phaseLabelNode',
-        position: { x: 1450, y: 3100 },
+        position: { x: 1450, y: 3200 },
         data: {
             category: NODE_CATEGORIES.PHASE_LABEL,
             label: '6B. 504 PLAN',
@@ -102,7 +102,7 @@ const phaseLabels = [
     {
         id: 'phase-fba-bip',
         type: 'phaseLabelNode',
-        position: { x: 600, y: 3100 },
+        position: { x: 600, y: 3200 },
         data: {
             category: NODE_CATEGORIES.PHASE_LABEL,
             label: 'BEHAVIOR SUPPORT',
@@ -544,7 +544,7 @@ Consider 504 Plan eligibility — 504 has a broader definition of disability and
     {
         id: 'behavior-concern',
         type: 'decisionNode',
-        position: { x: 520, y: 2900 },
+        position: { x: 700, y: 3000 },
         data: {
             category: NODE_CATEGORIES.DECISION,
             label: 'Behavior Impacting Learning?',
