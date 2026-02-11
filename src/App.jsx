@@ -307,7 +307,14 @@ function FlowCanvas() {
             <Legend />
 
             {/* Node Detail Modal */}
-            <NodeDetailModal node={modalNode} onClose={() => setModalNode(null)} />
+            <NodeDetailModal
+                node={modalNode}
+                onClose={() => setModalNode(null)}
+                onNavigate={(nodeLabel) => {
+                    const target = nodes.find(n => n.data?.label === nodeLabel);
+                    if (target) setModalNode(target.data);
+                }}
+            />
         </div>
     );
 }

@@ -8,7 +8,7 @@ import { categoryColors } from '../../data/flowData';
 import formatMarkdown from '../../utils/formatMarkdown';
 import './NodeDetailModal.css';
 
-function NodeDetailModal({ node, onClose }) {
+function NodeDetailModal({ node, onClose, onNavigate }) {
     if (!node) return null;
 
     const borderColor = categoryColors[node.category] || 'var(--color-primary)';
@@ -54,7 +54,13 @@ function NodeDetailModal({ node, onClose }) {
                             <div className="node-modal-connection-group">
                                 <span className="node-modal-connection-label">Incoming</span>
                                 {node.connections.incoming.map((name, i) => (
-                                    <span key={i} className="node-modal-badge incoming">{name}</span>
+                                    <span
+                                        key={i}
+                                        className="node-modal-badge incoming clickable"
+                                        onClick={() => onNavigate?.(name)}
+                                    >
+                                        {name}
+                                    </span>
                                 ))}
                             </div>
                         )}
@@ -65,7 +71,11 @@ function NodeDetailModal({ node, onClose }) {
                                     const name = typeof conn === 'string' ? conn : conn.name;
                                     const label = typeof conn === 'object' && conn.edgeLabel ? conn.edgeLabel : '';
                                     return (
-                                        <span key={i} className="node-modal-badge outgoing">
+                                        <span
+                                            key={i}
+                                            className="node-modal-badge outgoing clickable"
+                                            onClick={() => onNavigate?.(name)}
+                                        >
                                             {label ? `${label} \u2192 ${name}` : name}
                                         </span>
                                     );
