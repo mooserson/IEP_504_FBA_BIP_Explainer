@@ -48,17 +48,6 @@ function NodeDetailModal({ node, onClose }) {
 
                 <p className="node-modal-summary">{node.summary}</p>
 
-                {node.detail && (
-                    <div className="node-modal-detail">
-                        <div
-                            className="node-modal-detail-content"
-                            dangerouslySetInnerHTML={{
-                                __html: formatMarkdown(node.detail)
-                            }}
-                        />
-                    </div>
-                )}
-
                 {node.connections && (node.connections.incoming.length > 0 || node.connections.outgoing.length > 0) && (
                     <div className="node-modal-connections">
                         {node.connections.incoming.length > 0 && (
@@ -83,6 +72,17 @@ function NodeDetailModal({ node, onClose }) {
                                 })}
                             </div>
                         )}
+                    </div>
+                )}
+
+                {node.detail && (
+                    <div className="node-modal-detail">
+                        <div
+                            className="node-modal-detail-content"
+                            dangerouslySetInnerHTML={{
+                                __html: formatMarkdown(node.detail)
+                            }}
+                        />
                     </div>
                 )}
             </div>
