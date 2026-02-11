@@ -1,70 +1,17 @@
 /**
  * EndpointNode - Terminal state (completion/success node)
  */
-import { memo, useState, useRef, useEffect } from 'react';
+import { memo } from 'react';
 import { Handle, Position } from '@xyflow/react';
 import { categoryColors } from '../../data/flowData';
+import formatMarkdown from '../../utils/formatMarkdown';
+import useNodeHover from '../../hooks/useNodeHover';
+import ConnectionBadges from './ConnectionBadges';
 import './nodes.css';
 
-// Simple markdown-like formatting
-function formatMarkdown(text) {
-    if (!text) return '';
-    return text
-        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-        .replace(/\n\n/g, '</p><p>')
-        .replace(/\n• /g, '</p><p class="bullet">• ')
-        .replace(/\n/g, '<br/>');
-}
-
 function EndpointNode({ data, selected }) {
-    const [isHovered, setIsHovered] = useState(false);
-    const detailRef = useRef(null);
-    const hoverTimeoutRef = useRef(null);
+    const { isHovered, detailRef, handleMouseEnter, handleMouseLeave } = useNodeHover();
     const borderColor = categoryColors[data.category] || 'var(--color-iep)';
-
-    // Debounced hover handlers to prevent flicker
-    const handleMouseEnter = () => {
-        if (hoverTimeoutRef.current) {
-            clearTimeout(hoverTimeoutRef.current);
-            hoverTimeoutRef.current = null;
-        }
-        setIsHovered(true);
-    };
-
-    const handleMouseLeave = () => {
-        hoverTimeoutRef.current = setTimeout(() => {
-            setIsHovered(false);
-        }, 100);
-    };
-
-    // Cleanup timeout on unmount
-    useEffect(() => {
-        return () => {
-            if (hoverTimeoutRef.current) {
-                clearTimeout(hoverTimeoutRef.current);
-            }
-        };
-    }, []);
-
-    // Use capture phase to intercept wheel events before React Flow
-    useEffect(() => {
-        const detailEl = detailRef.current;
-        if (!detailEl) return;
-
-        const handleWheel = (e) => {
-            const isExpanded = detailEl.scrollHeight > 0 && detailEl.clientHeight > 0;
-            const hasScrollableContent = detailEl.scrollHeight > detailEl.clientHeight;
-
-            if (isExpanded || hasScrollableContent) {
-                e.stopPropagation();
-                e.preventDefault();
-                detailEl.scrollTop += e.deltaY;
-            }
-        };
-
-        detailEl.addEventListener('wheel', handleWheel, { passive: false, capture: true });
-        return () => detailEl.removeEventListener('wheel', handleWheel, { capture: true });
-    }, [isHovered]);
 
     return (
         <div
@@ -91,28 +38,7 @@ function EndpointNode({ data, selected }) {
             <p className="node-summary">{data.summary}</p>
 
             {/* Connection badges - shown when not expanded */}
-            {!isHovered && data.connections && (data.connections.incoming.length > 0 || data.connections.outgoing.length > 0) && (
-                <div className="node-connections">
-                    {data.connections.incoming.length > 0 && (
-                        <div className="connection-group">
-                            <span className="connection-label">IN:</span>
-                            {data.connections.incoming.map((name, i) => (
-                                <span key={i} className="connection-badge incoming">{name}</span>
-                            ))}
-                        </div>
-                    )}
-                    {data.connections.outgoing.length > 0 && (
-                        <div className="connection-group">
-                            <span className="connection-label">OUT:</span>
-                            {data.connections.outgoing.map((conn, i) => (
-                                <span key={i} className="connection-badge outgoing">
-                                    {typeof conn === 'string' ? conn : conn.name}
-                                </span>
-                            ))}
-                        </div>
-                    )}
-                </div>
-            )}
+            {!isHovered && <ConnectionBadges connections={data.connections} />}
 
             {data.detail && (
                 <div
@@ -127,28 +53,7 @@ function EndpointNode({ data, selected }) {
                     />
 
                     {/* Connection badges - shown when expanded (after detail content) */}
-                    {data.connections && (data.connections.incoming.length > 0 || data.connections.outgoing.length > 0) && (
-                        <div className="node-connections">
-                            {data.connections.incoming.length > 0 && (
-                                <div className="connection-group">
-                                    <span className="connection-label">IN:</span>
-                                    {data.connections.incoming.map((name, i) => (
-                                        <span key={i} className="connection-badge incoming">{name}</span>
-                                    ))}
-                                </div>
-                            )}
-                            {data.connections.outgoing.length > 0 && (
-                                <div className="connection-group">
-                                    <span className="connection-label">OUT:</span>
-                                    {data.connections.outgoing.map((conn, i) => (
-                                        <span key={i} className="connection-badge outgoing">
-                                            {typeof conn === 'string' ? conn : conn.name}
-                                        </span>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
-                    )}
+                    <ConnectionBadges connections={data.connections} />
                 </div>
             )}
 

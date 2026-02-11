@@ -5,17 +5,8 @@
 import { useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { categoryColors } from '../../data/flowData';
+import formatMarkdown from '../../utils/formatMarkdown';
 import './NodeDetailModal.css';
-
-// Simple markdown-like formatting (same as in node components)
-function formatMarkdown(text) {
-    if (!text) return '';
-    return text
-        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-        .replace(/\n\n/g, '</p><p>')
-        .replace(/\n• /g, '</p><p class="bullet">• ')
-        .replace(/\n/g, '<br/>');
-}
 
 function NodeDetailModal({ node, onClose }) {
     if (!node) return null;
