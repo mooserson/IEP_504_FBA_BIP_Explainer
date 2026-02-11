@@ -22,15 +22,15 @@ function ProcessNode({ data, selected }) {
             }}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
+            onClick={(e) => {
+                e.stopPropagation();
+                data.onNodeClick?.(data);
+            }}
         >
             <Handle type="target" position={Position.Top} />
 
             <div
                 className="node-header"
-                onClick={(e) => {
-                    e.stopPropagation();
-                    data.onNodeClick?.(data);
-                }}
             >
                 <div className="node-indicator" />
                 <h3 className="node-title">{data.label}</h3>

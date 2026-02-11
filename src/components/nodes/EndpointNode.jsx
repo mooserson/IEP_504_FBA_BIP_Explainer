@@ -22,16 +22,14 @@ function EndpointNode({ data, selected }) {
             }}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
+            onClick={(e) => {
+                e.stopPropagation();
+                data.onNodeClick?.(data);
+            }}
         >
             <Handle type="target" position={Position.Top} />
 
-            <div
-                className="endpoint-header"
-                onClick={(e) => {
-                    e.stopPropagation();
-                    data.onNodeClick?.(data);
-                }}
-            >
+            <div className="endpoint-header">
                 <div className="endpoint-badge">✓</div>
                 <h3 className="node-title">{data.label}</h3>
             </div>

@@ -27,7 +27,7 @@
     box-shadow: var(--shadow-lg);
     transition: all var(--transition-base);
     position: relative;
-    cursor: default;
+    cursor: pointer;
 }
 
 /* Invisible hover buffer zone below node to prevent flicker during content transitions */
@@ -161,7 +161,7 @@
     max-height: 400px;
     overflow-y: auto;
     opacity: 1;
-    cursor: auto;
+    cursor: pointer;
 }
 
 /* Scrollbar styling for detail section */

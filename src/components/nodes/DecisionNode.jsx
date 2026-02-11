@@ -22,16 +22,14 @@ function DecisionNode({ data, selected }) {
             }}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
+            onClick={(e) => {
+                e.stopPropagation();
+                data.onNodeClick?.(data);
+            }}
         >
             <Handle type="target" position={Position.Top} />
 
-            <div
-                className="decision-diamond"
-                onClick={(e) => {
-                    e.stopPropagation();
-                    data.onNodeClick?.(data);
-                }}
-            >
+            <div className="decision-diamond">
                 <h3 className="node-title">{data.label}</h3>
                 {data.meetingRequired && (
                     <span className="meeting-badge">Meeting Required</span>
