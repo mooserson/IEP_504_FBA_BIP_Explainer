@@ -35,7 +35,7 @@ const phaseLabels = [
         position: { x: -100, y: -20 },
         data: {
             category: NODE_CATEGORIES.PHASE_LABEL,
-            label: '1. TIER 1',
+            label: 'GENERAL EDUCATION',
             description: 'Universal supports & screening',
         },
     },
@@ -45,7 +45,7 @@ const phaseLabels = [
         position: { x: -100, y: 340 },
         data: {
             category: NODE_CATEGORIES.PHASE_LABEL,
-            label: '2. INTERVENTION',
+            label: 'INTERVENTION',
             description: 'Tiered supports (MTSS/RTI)',
         },
     },
@@ -55,7 +55,7 @@ const phaseLabels = [
         position: { x: -100, y: 1350 },
         data: {
             category: NODE_CATEGORIES.PHASE_LABEL,
-            label: '3. REFERRAL',
+            label: 'REFERRAL',
             description: 'Formal evaluation request',
         },
     },
@@ -65,7 +65,7 @@ const phaseLabels = [
         position: { x: -100, y: 2100 },
         data: {
             category: NODE_CATEGORIES.PHASE_LABEL,
-            label: '4. EVALUATION',
+            label: 'EVALUATION',
             description: '60-day comprehensive assessment',
         },
     },
@@ -75,7 +75,7 @@ const phaseLabels = [
         position: { x: -100, y: 2450 },
         data: {
             category: NODE_CATEGORIES.PHASE_LABEL,
-            label: '5. ELIGIBILITY',
+            label: 'ELIGIBILITY',
             description: 'Determine services pathway',
         },
     },
@@ -85,7 +85,7 @@ const phaseLabels = [
         position: { x: -300, y: 3200 },
         data: {
             category: NODE_CATEGORIES.PHASE_LABEL,
-            label: '6A. IEP PATHWAY',
+            label: 'IEP PATHWAY',
             description: 'Individualized Education Program',
         },
     },
@@ -95,8 +95,8 @@ const phaseLabels = [
         position: { x: 1450, y: 3200 },
         data: {
             category: NODE_CATEGORIES.PHASE_LABEL,
-            label: '6B. 504 PLAN',
-            description: 'Section 504 Accommodations',
+            label: '504 PLAN',
+            description: 'Accommodations for Learning Barriers',
         },
     },
     {
