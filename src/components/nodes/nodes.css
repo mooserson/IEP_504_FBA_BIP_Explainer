@@ -330,7 +330,7 @@
 
 /* Hide phase labels when zoomed in */
 .zoom-detailed .phase-label-node {
-    opacity: 0;
+    opacity: 0.4;
     transition: opacity var(--transition-base);
 }
 
