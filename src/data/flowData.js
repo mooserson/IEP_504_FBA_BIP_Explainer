@@ -181,8 +181,9 @@ need more than Tier 1 supports.
             category: NODE_CATEGORIES.DECISION,
             label: 'T1: Adequate Progress?',
             summary: 'Is the student responding to Tier 1 supports?',
-            detail: `The team reviews data to determine if the student is making adequate progress 
-with universal supports.
+            detail: `The **MTSS team** reviews data to determine if the student is making adequate progress
+with universal supports. This team typically includes administrators, general education teachers,
+specialists, and support staff.
 
 **Data Sources:**
 • Classroom assessments

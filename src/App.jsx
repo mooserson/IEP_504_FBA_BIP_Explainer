@@ -187,7 +187,7 @@ function FlowCanvas() {
             console.error('Error updating flow visualization:', err);
         }
 
-    }, [experimentSettings, hoveredNodeId, zoomLevel, setNodes, setEdges]);
+    }, [experimentSettings, hoveredNodeId, setNodes, setEdges]);
 
     // Handle node hover for edge highlighting (ignore phase labels)
     const onNodeMouseEnter = useCallback((event, node) => {
